@@ -35,7 +35,7 @@ spec:
             protocol: TCP
         env:
         - name: MONGO_URL
-          value: "mongodb://{{ .Values.mongodb.mongodbUsername }}:{{ .Values.mongodb.mongodbPassword }}@reactioncommerce-mongodb-primary-0.{{ template "reactioncommerce.fullname" . }}-mongodb-headless.{{ .Release.Namespace }}.svc:27017/{{ .Values.mongodb.mongodbDatabase }}"
+          value: "mongodb://{{ .Values.mongodb.mongodbUsername }}:{{ .Values.mongodb.mongodbPassword }}@{{ template "reactioncommerce.fullname" . }}-mongodb-headless.{{ .Release.Namespace }}.svc:27017/{{ .Values.mongodb.mongodbDatabase }}?replicaSet=rs0"
         - name: ROOT_URL
           value: {{ .Values.api.rootUrl }}
         - name: STRIPE_API_KEY

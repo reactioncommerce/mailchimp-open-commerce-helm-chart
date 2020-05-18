@@ -43,7 +43,7 @@ spec:
         - name: MONGO_OPLOG_URL
           value: mongodb://mongo.reaction.localhost:27017/local
         - name: MONGO_URL
-          value: mongodb://mongo.reaction.localhost:27017/reaction
+          value: mongodb://{{ .Values.mongodb.mongodbUsername }}:{{ .Values.mongodb.mongodbPassword }}@{{ template "reactioncommerce.fullname" . }}-mongodb-headless.{{ .Release.Namespace }}.svc:27017/{{ .Values.mongodb.mongodbDatabase }}?replicaSet=rs0
         - name: OAUTH2_ADMIN_URL
           value: http://hydra.reaction.localhost:4445
         - name: OAUTH2_IDP_PUBLIC_CHANGE_PASSWORD_URL
