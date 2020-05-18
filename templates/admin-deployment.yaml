@@ -1,26 +1,40 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -c
-    kompose.version: 1.19.0 (f63a961c)
-  creationTimestamp: null
   labels:
-    io.kompose.service: admin
-  name: admin
+    app: {{ template "reactioncommerce.name" . }}
+    component: admin
+    chart: {{ template "reactioncommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "reactioncommerce.fullname" . }}-admin
+  namespace: {{ .Release.Namespace | quote }} 
 spec:
-  replicas: 1
-  strategy: {}
+  replicas: {{ .Values.admin.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "reactioncommerce.name" . }}
+      component: admin
+      release: {{ .Release.Name }}
+  replicas: {{ .Values.admin.replicaCount }}
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert -c
-        kompose.version: 1.19.0 (f63a961c)
-      creationTimestamp: null
       labels:
-        io.kompose.service: admin
+        app: {{ template "reactioncommerce.name" . }}
+        component: admin
+        release: {{ .Release.Name }}
     spec:
       containers:
+      - name: {{ .Chart.Name }}-admin
+        image: "{{ .Values.admin.image.repository }}:{{ .Values.admin.image.tag }}"
+        imagePullPolicy: {{ .Values.admin.image.pullPolicy }}
+        ports:
+          - name: admin
+            containerPort: 4080
+            protocol: TCP
+          # - name: inspection
+          #   containerPort: 9229
+          #   protocol: TCP
       - env:
         - name: METEOR_DISABLE_OPTIMISTIC_CACHING
           value: "1"
@@ -47,14 +61,6 @@ spec:
         - name: PUBLIC_I18N_BASE_URL
           value: http://localhost:3000
         - name: PUBLIC_STOREFRONT_HOME_URL
-          value: http://localhost:4000
+          value: {{ .Values.admin.storeFrontUrl }}
         - name: ROOT_URL
-          value: http://localhost:4080
-        image: reactioncommerce/admin:3.0.0-beta.6
-        name: admin
-        ports:
-        - containerPort: 4080
-        - containerPort: 9229
-        resources: {}
-      restartPolicy: Always
-status: {}
+          value: {{ .Values.admin.rootUrl }}
