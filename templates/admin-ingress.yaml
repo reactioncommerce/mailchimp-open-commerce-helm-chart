@@ -1,0 +1,31 @@
+{{- if .Values.admin.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "reactioncommerce.fullname" . }}-admin
+  labels:
+    app: {{ template "reactioncommerce.name" . }}
+    component: admin
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+  annotations:
+    {{ range $key, $value := .Values.admin.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+{{- if .Values.admin.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ .Values.admin.externalAlias }}.{{ .Values.global.dnsZone }}
+      secretName: {{ .Values.admin.ingress.tls.secretName }}
+{{- end }}
+  rules:
+    - http:
+        paths:
+          - path: {{ .Values.admin.ingress.path }}
+            backend:
+              serviceName: {{ template "reactioncommerce.fullname" . }}-admin
+              servicePort: admin
+      host: {{ .Values.admin.externalAlias }}.{{ .Values.global.dnsZone }}
+{{- end }}

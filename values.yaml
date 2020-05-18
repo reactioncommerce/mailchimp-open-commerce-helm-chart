@@ -1,3 +1,5 @@
+global:
+  dnsZone: example.shop
 admin:
   replicaCount: 2
   image:
