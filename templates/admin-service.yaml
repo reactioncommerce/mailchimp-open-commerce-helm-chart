@@ -1,22 +1,27 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -c
-    kompose.version: 1.19.0 (f63a961c)
-  creationTimestamp: null
+  name: {{ template "reactioncommerce.fullname" . }}-admin
   labels:
-    io.kompose.service: admin
-  name: admin
+    app: {{ template "reactioncommerce.name" . }}
+    component: admin
+    chart: {{ template "reactioncommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+  {{- if .Values.admin.service.annotations }}
+{{ toYaml .Values.admin.service.annotations | trim | indent 4 }}
+  {{- end }}
 spec:
-  ports:
-  - name: "4080"
-    port: 4080
-    targetPort: 4080
-  - name: "9231"
-    port: 9231
-    targetPort: 9229
+  type: {{ .Values.admin.service.type }}
   selector:
-    io.kompose.service: admin
-status:
-  loadBalancer: {}
+    app: {{ template "reactioncommerce.name" . }}
+    component: admin
+    release: {{ .Release.Name }}
+  ports:
+    - name: "admin"
+      port: 4080
+      targetPort: 4080
+    - name: "inspector"
+      port: 9231
+      targetPort: 9229

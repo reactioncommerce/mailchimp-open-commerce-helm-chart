@@ -7,3 +7,14 @@ admin:
     # imagePullSecret:
   rootUrl: https://admin.example.shop
   storeFrontUrl: https://www.example.shop
+  service:
+    annotations: {}
+    type: ClusterIP
+  ingress:
+    enabled: false
+    path: ""
+    annotations: {}
+    livenessPath:
+    tls:
+      enabled: false
+      secretName: tls-secret
