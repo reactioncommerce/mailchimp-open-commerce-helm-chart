@@ -3,6 +3,7 @@ global:
   storeFrontUrl: https://www.example.shop
   stripeKey: YOUR_PRIVATE_STRIPE_API_KEY
 admin:
+  enabled: false
   internalAlias: admin
   replicaCount: 2
   image:
@@ -23,6 +24,7 @@ admin:
       enabled: false
       secretName: tls-secret
 api:
+  enabled: true
   internalAlias: api
   replicaCount: 2
   image:
@@ -43,6 +45,7 @@ api:
       enabled: false
       secretName: tls-secret
 identity:
+  enabled: false
   internalAlias: identity
   replicaCount: 2
   image:
@@ -63,6 +66,7 @@ identity:
       enabled: false
       secretName: tls-secret
 web:
+  enabled: false
   internalAlias: web
   replicaCount: 2
   image:

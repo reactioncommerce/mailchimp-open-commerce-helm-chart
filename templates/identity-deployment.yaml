@@ -1,3 +1,4 @@
+{{- if .Values.identity.enabled -}}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -54,3 +55,4 @@ spec:
           value: "4100"
         - name: ROOT_URL
           value: {{ .Values.identity.rootUrl }}
+{{- end }}

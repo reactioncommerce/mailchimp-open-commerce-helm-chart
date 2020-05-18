@@ -1,3 +1,4 @@
+{{- if .Values.admin.enabled -}}
 {{- if .Values.admin.ingress.enabled -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -28,4 +29,5 @@ spec:
               serviceName: {{ template "reactioncommerce.fullname" . }}-admin
               servicePort: admin
       host: {{ .Values.admin.internalAlias }}.{{ .Values.global.dnsZone }}
+{{- end }}
 {{- end }}

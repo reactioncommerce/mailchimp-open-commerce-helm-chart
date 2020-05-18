@@ -1,3 +1,4 @@
+{{- if .Values.api.enabled -}}
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -39,3 +40,4 @@ spec:
           value: {{ .Values.api.rootUrl }}
         - name: STRIPE_API_KEY
           value: {{ .Values.global.stripeKey }}
+{{- end }}

@@ -1,3 +1,4 @@
+{{- if .Values.web.enabled -}}
 {{- if .Values.web.ingress.enabled -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -28,4 +29,5 @@ spec:
               serviceName: {{ template "reactioncommerce.fullname" . }}-web
               servicePort: web
       host: {{ .Values.web.internalAlias }}.{{ .Values.global.dnsZone }}
+{{- end }}
 {{- end }}
