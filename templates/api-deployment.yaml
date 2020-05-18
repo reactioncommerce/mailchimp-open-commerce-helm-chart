@@ -32,7 +32,7 @@ spec:
           - name: api
             containerPort: 3000
             protocol: TCP
-      - env:
+        env:
         - name: MONGO_URL
           value: mongodb://mongo.reaction.localhost:27017/reaction
         - name: ROOT_URL

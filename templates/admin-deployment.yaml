@@ -34,7 +34,7 @@ spec:
           # - name: inspection
           #   containerPort: 9229
           #   protocol: TCP
-      - env:
+        env:
         - name: METEOR_DISABLE_OPTIMISTIC_CACHING
           value: "1"
         - name: METEOR_WATCH_POLLING_INTERVAL_MS
@@ -60,6 +60,6 @@ spec:
         - name: PUBLIC_I18N_BASE_URL
           value: http://localhost:3000
         - name: PUBLIC_STOREFRONT_HOME_URL
-          value: {{ .Values.admin.storeFrontUrl }}
+          value: {{ .Values.global.storeFrontUrl }}
         - name: ROOT_URL
           value: {{ .Values.admin.rootUrl }}

@@ -1,29 +1,39 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -c
-    kompose.version: 1.19.0 (f63a961c)
-  creationTimestamp: null
   labels:
-    io.kompose.service: identity
-  name: identity
+    app: {{ template "reactioncommerce.name" . }}
+    component: identity
+    chart: {{ template "reactioncommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "reactioncommerce.fullname" . }}-identity
+  namespace: {{ .Release.Namespace | quote }} 
 spec:
-  replicas: 1
-  strategy: {}
+  selector:
+    matchLabels:
+      app: {{ template "reactioncommerce.name" . }}
+      component: identity
+      release: {{ .Release.Name }}
+  replicas: {{ .Values.identity.replicaCount }}
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert -c
-        kompose.version: 1.19.0 (f63a961c)
-      creationTimestamp: null
       labels:
-        io.kompose.service: identity
+        app: {{ template "reactioncommerce.name" . }}
+        component: identity
+        release: {{ .Release.Name }}
     spec:
       containers:
-      - env:
+      - name: {{ .Chart.Name }}-identity
+        image: "{{ .Values.identity.image.repository }}:{{ .Values.identity.image.tag }}"
+        imagePullPolicy: {{ .Values.identity.image.pullPolicy }}
+        ports:
+          - name: identity
+            containerPort: 4100
+            protocol: TCP
+        env:
         - name: API_URL
-          value: http://localhost:3000/graphql
+          value: {{ .Values.api.rootUrl }}/graphql
         - name: HYDRA_ADMIN_URL
           value: http://hydra.reaction.localhost:4445
         - name: HYDRA_TOKEN_URL
@@ -39,15 +49,8 @@ spec:
         - name: MONGO_URL
           value: mongodb://mongo.reaction.localhost:27017/reaction
         - name: OAUTH2_CLIENT_DOMAINS
-          value: http://localhost:4000
+          value: {{ .Values.global.storeFrontUrl }}
         - name: PORT
           value: "4100"
         - name: ROOT_URL
-          value: http://localhost:4100
-        image: reactioncommerce/identity:3.0.0
-        name: identity
-        ports:
-        - containerPort: 4100
-        resources: {}
-      restartPolicy: Always
-status: {}
+          value: {{ .Values.identity.rootUrl }}
