@@ -17,7 +17,7 @@ spec:
 {{- if .Values.admin.ingress.tls.enabled }}
   tls:
     - hosts:
-        - {{ .Values.admin.externalAlias }}.{{ .Values.global.dnsZone }}
+        - {{ .Values.admin.internalAlias }}.{{ .Values.global.dnsZone }}
       secretName: {{ .Values.admin.ingress.tls.secretName }}
 {{- end }}
   rules:
@@ -27,5 +27,5 @@ spec:
             backend:
               serviceName: {{ template "reactioncommerce.fullname" . }}-admin
               servicePort: admin
-      host: {{ .Values.admin.externalAlias }}.{{ .Values.global.dnsZone }}
+      host: {{ .Values.admin.internalAlias }}.{{ .Values.global.dnsZone }}
 {{- end }}

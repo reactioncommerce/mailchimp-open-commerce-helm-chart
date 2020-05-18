@@ -1,6 +1,7 @@
 global:
   dnsZone: example.shop
 admin:
+  internalAlias: admin
   replicaCount: 2
   image:
     repository: reactioncommerce/admin
@@ -21,6 +22,7 @@ admin:
       enabled: false
       secretName: tls-secret
 api:
+  internalAlias: api
   replicaCount: 2
   image:
     repository: reactioncommerce/reaction
