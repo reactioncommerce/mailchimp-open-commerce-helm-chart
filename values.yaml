@@ -86,3 +86,29 @@ web:
     tls:
       enabled: false
       secretName: tls-secret
+mongodb:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: bitnami/mongodb
+    tag: 4.2.6-debian-10-r34
+    pullPolicy: IfNotPresent
+    # pullSecrets:
+    #   - myRegistryKeySecretName
+  usePassword: true
+  # existingSecret: name-of-existing-secret
+  mongodbDatabase: reaction
+  mongodbUsername: reaction
+  mongodbPassword: reaction
+  mongodbRootPassword: root
+  service:
+    annotations: {}
+    type: ClusterIP
+    port: 27017
+  replicaSet:
+    enabled: true
+    useHostnames: true
+    name: rs0
+    replicas:
+      secondary: 1
+      arbiter: 1

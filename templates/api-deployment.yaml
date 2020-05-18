@@ -35,9 +35,11 @@ spec:
             protocol: TCP
         env:
         - name: MONGO_URL
-          value: mongodb://mongo.reaction.localhost:27017/reaction
+          value: "mongodb://{{ .Values.mongodb.mongodbUsername }}:{{ .Values.mongodb.mongodbPassword }}@reactioncommerce-mongodb-primary-0.{{ template "reactioncommerce.fullname" . }}-mongodb-headless.{{ .Release.Namespace }}.svc:27017/{{ .Values.mongodb.mongodbDatabase }}"
         - name: ROOT_URL
           value: {{ .Values.api.rootUrl }}
         - name: STRIPE_API_KEY
           value: {{ .Values.global.stripeKey }}
+        - name: REACTION_SHOULD_INIT_REPLICA_SET
+          value: "false"
 {{- end }}
