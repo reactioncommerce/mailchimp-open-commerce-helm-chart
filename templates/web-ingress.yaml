@@ -1,0 +1,31 @@
+{{- if .Values.web.ingress.enabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "reactioncommerce.fullname" . }}-web
+  labels:
+    app: {{ template "reactioncommerce.name" . }}
+    component: web
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+  annotations:
+    {{ range $key, $value := .Values.web.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+{{- if .Values.web.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ .Values.web.internalAlias }}.{{ .Values.global.dnsZone }}
+      secretName: {{ .Values.web.ingress.tls.secretName }}
+{{- end }}
+  rules:
+    - http:
+        paths:
+          - path: {{ .Values.web.ingress.path }}
+            backend:
+              serviceName: {{ template "reactioncommerce.fullname" . }}-web
+              servicePort: web
+      host: {{ .Values.web.internalAlias }}.{{ .Values.global.dnsZone }}
+{{- end }}

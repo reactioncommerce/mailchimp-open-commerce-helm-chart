@@ -38,4 +38,4 @@ spec:
         - name: ROOT_URL
           value: {{ .Values.api.rootUrl }}
         - name: STRIPE_API_KEY
-          value: {{ .Values.api.stripeKey }}
+          value: {{ .Values.global.stripeKey }}

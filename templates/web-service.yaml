@@ -1,19 +1,24 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -c
-    kompose.version: 1.19.0 (f63a961c)
-  creationTimestamp: null
+  name: {{ template "reactioncommerce.fullname" . }}-web
   labels:
-    io.kompose.service: web
-  name: web
+    app: {{ template "reactioncommerce.name" . }}
+    component: web
+    chart: {{ template "reactioncommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+  {{- if .Values.web.service.annotations }}
+{{ toYaml .Values.web.service.annotations | trim | indent 4 }}
+  {{- end }}
 spec:
-  ports:
-  - name: "4000"
-    port: 4000
-    targetPort: 4000
+  type: {{ .Values.web.service.type }}
   selector:
-    io.kompose.service: web
-status:
-  loadBalancer: {}
+    app: {{ template "reactioncommerce.name" . }}
+    component: web
+    release: {{ .Release.Name }}
+  ports:
+    - name: "web"
+      port: 4000
+      targetPort: 4000

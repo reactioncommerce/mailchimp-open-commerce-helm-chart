@@ -1,6 +1,7 @@
 global:
   dnsZone: example.shop
   storeFrontUrl: https://www.example.shop
+  stripeKey: YOUR_PRIVATE_STRIPE_API_KEY
 admin:
   internalAlias: admin
   replicaCount: 2
@@ -30,7 +31,6 @@ api:
     pullPolicy: IfNotPresent
     # imagePullSecret:
   rootUrl: https://api.example.shop
-  stripeKey: YOUR_PRIVATE_STRIPE_API_KEY
   service:
     annotations: {}
     type: ClusterIP
@@ -51,6 +51,26 @@ identity:
     pullPolicy: IfNotPresent
     # imagePullSecret:
   rootUrl: https://identity.example.shop
+  service:
+    annotations: {}
+    type: ClusterIP
+  ingress:
+    enabled: false
+    path: ""
+    annotations: {}
+    livenessPath:
+    tls:
+      enabled: false
+      secretName: tls-secret
+web:
+  internalAlias: web
+  replicaCount: 2
+  image:
+    repository: reactioncommerce/example-storefront
+    tag: 3.0.0
+    pullPolicy: IfNotPresent
+    # imagePullSecret:
+  rootUrl: https://www.example.shop
   service:
     annotations: {}
     type: ClusterIP
