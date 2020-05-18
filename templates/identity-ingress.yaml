@@ -1,6 +1,6 @@
 {{- if .Values.identity.enabled -}}
 {{- if .Values.identity.ingress.enabled -}}
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Ingress
 metadata:
   name: {{ template "reactioncommerce.fullname" . }}-identity

@@ -1,6 +1,6 @@
 {{- if .Values.api.enabled -}}
 {{- if .Values.api.ingress.enabled -}}
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Ingress
 metadata:
   name: {{ template "reactioncommerce.fullname" . }}-api
