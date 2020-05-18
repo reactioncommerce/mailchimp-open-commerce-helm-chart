@@ -1,37 +1,41 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -c
-    kompose.version: 1.19.0 (f63a961c)
-  creationTimestamp: null
   labels:
-    io.kompose.service: api
-  name: api
+    app: {{ template "reactioncommerce.name" . }}
+    component: api
+    chart: {{ template "reactioncommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "reactioncommerce.fullname" . }}-api
+  namespace: {{ .Release.Namespace | quote }} 
 spec:
-  replicas: 1
-  strategy: {}
+  replicas: {{ .Values.api.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "reactioncommerce.name" . }}
+      component: api
+      release: {{ .Release.Name }}
+  replicas: {{ .Values.api.replicaCount }}
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert -c
-        kompose.version: 1.19.0 (f63a961c)
-      creationTimestamp: null
       labels:
-        io.kompose.service: api
+        app: {{ template "reactioncommerce.name" . }}
+        component: api
+        release: {{ .Release.Name }}
     spec:
       containers:
+      - name: {{ .Chart.Name }}-api
+        image: "{{ .Values.api.image.repository }}:{{ .Values.api.image.tag }}"
+        imagePullPolicy: {{ .Values.api.image.pullPolicy }}
+        ports:
+          - name: api
+            containerPort: 3000
+            protocol: TCP
       - env:
         - name: MONGO_URL
           value: mongodb://mongo.reaction.localhost:27017/reaction
         - name: ROOT_URL
-          value: http://localhost:3000
+          value: {{ .Values.api.rootUrl }}
         - name: STRIPE_API_KEY
-          value: YOUR_PRIVATE_STRIPE_API_KEY
-        image: reactioncommerce/reaction:3.7.1
-        name: api
-        ports:
-        - containerPort: 3000
-        resources: {}
-      restartPolicy: Always
-status: {}
+          value: {{ .Values.api.stripeKey }}

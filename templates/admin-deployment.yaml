@@ -10,7 +10,6 @@ metadata:
   name: {{ template "reactioncommerce.fullname" . }}-admin
   namespace: {{ .Release.Namespace | quote }} 
 spec:
-  replicas: {{ .Values.admin.replicaCount }}
   selector:
     matchLabels:
       app: {{ template "reactioncommerce.name" . }}
