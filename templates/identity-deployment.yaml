@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: identity
+  name: identity
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -c
+        kompose.version: 1.19.0 (f63a961c)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: identity
+    spec:
+      containers:
+      - env:
+        - name: API_URL
+          value: http://localhost:3000/graphql
+        - name: HYDRA_ADMIN_URL
+          value: http://hydra.reaction.localhost:4445
+        - name: HYDRA_TOKEN_URL
+          value: http://hydra.reaction.localhost:4444/oauth2/token
+        - name: LOG_LEVEL
+          value: debug
+        - name: METEOR_DISABLE_OPTIMISTIC_CACHING
+          value: "1"
+        - name: METEOR_WATCH_POLLING_INTERVAL_MS
+          value: "10000"
+        - name: MONGO_OPLOG_URL
+          value: mongodb://mongo.reaction.localhost:27017/local
+        - name: MONGO_URL
+          value: mongodb://mongo.reaction.localhost:27017/reaction
+        - name: OAUTH2_CLIENT_DOMAINS
+          value: http://localhost:4000
+        - name: PORT
+          value: "4100"
+        - name: ROOT_URL
+          value: http://localhost:4100
+        image: reactioncommerce/identity:3.0.0
+        name: identity
+        ports:
+        - containerPort: 4100
+        resources: {}
+      restartPolicy: Always
+status: {}

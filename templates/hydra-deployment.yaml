@@ -1,0 +1,61 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: hydra
+  name: hydra
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -c
+        kompose.version: 1.19.0 (f63a961c)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: hydra
+    spec:
+      containers:
+      - args:
+        - serve
+        - all
+        - --dangerous-force-http
+        env:
+        - name: DSN
+          value: postgres://hydra:changeme@postgres.reaction.localhost:5432/hydra?sslmode=disable
+        - name: OAUTH2_EXPOSE_INTERNAL_ERRORS
+          value: "true"
+        - name: OIDC_SUBJECT_IDENTIFIERS_ENABLED
+          value: "true"
+        - name: OIDC_SUBJECT_IDENTIFIERS_PAIRWISE_SALT
+          value: youReallyNeedToChangeThis
+        - name: SECRETS_SYSTEM
+          value: youReallyNeedToChangeThis
+        - name: SERVE_PUBLIC_CORS_ALLOWED_ORIGINS
+          value: http://localhost:4080
+        - name: SERVE_PUBLIC_CORS_ENABLED
+          value: "true"
+        - name: URLS_CONSENT
+          value: http://localhost:4100/consent
+        - name: URLS_ERROR
+          value: http://localhost:4100/account/oauth-error
+        - name: URLS_LOGIN
+          value: http://localhost:4100/login
+        - name: URLS_LOGOUT
+          value: http://localhost:4100/logout
+        - name: URLS_SELF_ISSUER
+          value: http://localhost:4444
+        image: oryd/hydra:v1.0.8
+        name: hydra
+        ports:
+        - containerPort: 4444
+        - containerPort: 4445
+        - containerPort: 5555
+        resources: {}
+      restartPolicy: Always
+status: {}

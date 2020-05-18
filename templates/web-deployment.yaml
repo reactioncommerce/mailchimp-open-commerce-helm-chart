@@ -1,0 +1,71 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -c
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web
+  name: web
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -c
+        kompose.version: 1.19.0 (f63a961c)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: web
+    spec:
+      containers:
+      - env:
+        - name: CANONICAL_URL
+          value: http://localhost:4000
+        - name: ENABLE_SPA_ROUTING
+          value: "true"
+        - name: EXTERNAL_GRAPHQL_URL
+          value: http://localhost:3000/graphql
+        - name: INTERNAL_GRAPHQL_URL
+          value: http://api.reaction.localhost:3000/graphql
+        - name: OAUTH2_ADMIN_PORT
+          value: "4445"
+        - name: OAUTH2_ADMIN_URL
+          value: http://hydra.reaction.localhost:4445
+        - name: OAUTH2_AUTH_URL
+          value: http://localhost:4444/oauth2/auth
+        - name: OAUTH2_CLIENT_ID
+          value: example-storefront
+        - name: OAUTH2_CLIENT_SECRET
+          value: CHANGEME
+        - name: OAUTH2_HOST
+          value: hydra.reaction.localhost
+        - name: OAUTH2_IDP_HOST_URL
+          value: http://identity.reaction.localhost:4100
+        - name: OAUTH2_IDP_PUBLIC_CHANGE_PASSWORD_URL
+          value: http://localhost:4100/account/change-password?email=EMAIL&from=FROM
+        - name: OAUTH2_PUBLIC_LOGOUT_URL
+          value: http://localhost:4444/oauth2/sessions/logout
+        - name: OAUTH2_TOKEN_URL
+          value: http://hydra.reaction.localhost:4444/oauth2/token
+        - name: PORT
+          value: "4000"
+        - name: SEGMENT_ANALYTICS_SKIP_MINIMIZE
+          value: "true"
+        - name: SEGMENT_ANALYTICS_WRITE_KEY
+          value: ENTER_KEY_HERE
+        - name: SESSION_MAX_AGE_MS
+          value: "2592000000"
+        - name: SESSION_SECRET
+          value: CHANGEME
+        - name: STRIPE_PUBLIC_API_KEY
+          value: ENTER_STRIPE_PUBLIC_KEY_HERE
+        image: reactioncommerce/example-storefront:3.0.0
+        name: web
+        ports:
+        - containerPort: 4000
+        resources: {}
+      restartPolicy: Always
+status: {}
