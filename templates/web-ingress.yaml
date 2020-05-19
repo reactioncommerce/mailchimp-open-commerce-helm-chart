@@ -24,7 +24,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: {{ .Values.web.host }}
+          - path: {{ .Values.web.path }}
             backend:
               serviceName: {{ template "reactioncommerce.fullname" . }}-web
               servicePort: web
