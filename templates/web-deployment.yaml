@@ -38,35 +38,35 @@ spec:
           - name: ENABLE_SPA_ROUTING
             value: "true"
           - name: EXTERNAL_GRAPHQL_URL
-            value: http://localhost:3000/graphql
+            value: "{{ template "reactioncommerce.api.url" . }}/graphql"
           - name: INTERNAL_GRAPHQL_URL
-            value: http://api.reaction.localhost:3000/graphql
+            value: {{ template "reactioncommerce.api.url" . }}/graphql
           - name: OAUTH2_ADMIN_PORT
             value: "4445"
           - name: OAUTH2_ADMIN_URL
-            value: http://hydra.reaction.localhost:4445
+            value: "http://{{ template "reactioncommerce.fullname" . }}-hydra.{{ .Release.Namespace }}.svc:4445"
           - name: OAUTH2_AUTH_URL
-            value: http://localhost:4444/oauth2/auth
+            value: "{{ template "reactioncommerce.hydra.frontend.url" . }}/oauth2/auth"
           - name: OAUTH2_CLIENT_ID
             value: example-storefront
           - name: OAUTH2_CLIENT_SECRET
             value: CHANGEME
           - name: OAUTH2_HOST
-            value: hydra.reaction.localhost
+            value: "{{ template "reactioncommerce.fullname" . }}-hydra.{{ .Release.Namespace }}.svc"
           - name: OAUTH2_IDP_HOST_URL
-            value: http://web.reaction.localhost:4100
+            value: "http://{{ template "reactioncommerce.fullname" . }}-identity.{{ .Release.Namespace }}.svc:4100"
           - name: OAUTH2_IDP_PUBLIC_CHANGE_PASSWORD_URL
-            value: http://localhost:4100/account/change-password?email=EMAIL&from=FROM
+            value: "{{ template "reactioncommerce.identity.url" . }}/account/change-password?email=EMAIL&from=FROM"
           - name: OAUTH2_PUBLIC_LOGOUT_URL
-            value: http://localhost:4444/oauth2/sessions/logout
+            value: "{{ template "reactioncommerce.hydra.frontend.url" . }}/oauth2/sessions/logout"
           - name: OAUTH2_TOKEN_URL
-            value: http://hydra.reaction.localhost:4444/oauth2/token
+            value: "{{ template "reactioncommerce.hydra.frontend.url" . }}/oauth2/token"
           - name: PORT
             value: "4000"
           - name: SEGMENT_ANALYTICS_SKIP_MINIMIZE
             value: "true"
           - name: SEGMENT_ANALYTICS_WRITE_KEY
-            value: ENTER_KEY_HERE
+            value: {{ .Values.global.segmentKey }}
           - name: SESSION_MAX_AGE_MS
             value: "2592000000"
           - name: SESSION_SECRET

@@ -18,7 +18,7 @@ spec:
 {{- if .Values.web.ingress.tls.enabled }}
   tls:
     - hosts:
-        - {{ .Values.web.internalAlias }}.{{ .Values.global.dnsZone }}
+        - {{ .Values.web.host }}
       secretName: {{ .Values.web.ingress.tls.secretName }}
 {{- end }}
   rules:
