@@ -61,7 +61,7 @@ spec:
         - name: PUBLIC_I18N_BASE_URL
           value: {{ template "reactioncommerce.api.url" . }}
         - name: PUBLIC_STOREFRONT_HOME_URL
-          value: {{ .Values.global.storeFrontUrl }}
+          value: {{ template "reactioncommerce.web.url" . }}
         - name: ROOT_URL
           value: {{ template "reactioncommerce.admin.url" . }}
 {{- end }}

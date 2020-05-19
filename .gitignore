@@ -39,3 +39,4 @@ Session.vim
 .vcscode
 requirements.lock
 output.yaml
+values_new.yaml
