@@ -39,6 +39,15 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 {{- end -}}
 
+{{- define "reactioncommerce.api.socketUrl" -}}
+{{- $hostName := .Values.api.host -}}
+{{- if .Values.api.ssl }}
+{{- printf "%s://%s" "wss" $hostName -}}
+{{- else -}}
+{{- printf "%s://%s" "ws" $hostName -}}
+{{- end -}}
+{{- end -}}
+
 {{- define "reactioncommerce.identity.url" -}}
 {{- $hostName := .Values.identity.host -}}
 {{- if .Values.identity.ssl }}

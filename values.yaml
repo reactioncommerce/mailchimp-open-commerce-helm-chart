@@ -1,7 +1,7 @@
 global:
   stripeKey: YOUR_PRIVATE_STRIPE_API_KEY
 admin:
-  enabled: false
+  enabled: true
   ssl: true
   host: admin.example.shop
   replicaCount: 2
@@ -43,7 +43,7 @@ api:
       enabled: false
       secretName: tls-secret
 identity:
-  enabled: false
+  enabled: true
   host: identity.example.shop
   ssl: true
   replicaCount: 2
@@ -88,10 +88,7 @@ mongodb:
   enabled: true
   usePassword: true
   # existingSecret: name-of-existing-secret
-  mongodbDatabase: reaction
-  mongodbUsername: reaction
-  mongodbPassword: reaction
-  mongodbRootPassword: root
+  mongodbRootPassword: reaction
   service:
     annotations: {}
     type: ClusterIP

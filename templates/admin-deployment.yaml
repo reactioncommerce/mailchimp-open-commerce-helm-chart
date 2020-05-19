@@ -9,7 +9,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   name: {{ template "reactioncommerce.fullname" . }}-admin
-  namespace: {{ .Release.Namespace | quote }} 
+  namespace: {{ .Release.Namespace | quote }}
 spec:
   selector:
     matchLabels:
@@ -41,25 +41,25 @@ spec:
         - name: METEOR_WATCH_POLLING_INTERVAL_MS
           value: "10000"
         - name: MONGO_OPLOG_URL
-          value: mongodb://mongo.reaction.localhost:27017/local
+          value: "mongodb://root:{{ .Values.mongodb.mongodbRootPassword }}@{{ template "reactioncommerce.fullname" . }}-mongodb-headless.{{ .Release.Namespace }}.svc:27017/local?replicaSet=rs0&authSource=admin"
         - name: MONGO_URL
-          value: mongodb://{{ .Values.mongodb.mongodbUsername }}:{{ .Values.mongodb.mongodbPassword }}@{{ template "reactioncommerce.fullname" . }}-mongodb-headless.{{ .Release.Namespace }}.svc:27017/{{ .Values.mongodb.mongodbDatabase }}?replicaSet=rs0
+          value: "mongodb://root:{{ .Values.mongodb.mongodbRootPassword }}@{{ template "reactioncommerce.fullname" . }}-mongodb-headless.{{ .Release.Namespace }}.svc:27017/reaction?replicaSet=rs0&authSource=admin"
         - name: OAUTH2_ADMIN_URL
-          value: http://hydra.reaction.localhost:4445
+          value: "http://{{ template "reactioncommerce.fullname" . }}-hydra.{{ .Release.Namespace }}.svc:4445"
         - name: OAUTH2_IDP_PUBLIC_CHANGE_PASSWORD_URL
-          value: http://localhost:4100/account/change-password?email=EMAIL&from=FROM
+          value: {{ template "reactioncommerce.identity.url" . }}/account/change-password?email=EMAIL&from=FROM
         - name: OAUTH2_PUBLIC_URL
-          value: http://localhost:4444
+          value: {{ template "reactioncommerce.hydra.frontend.url" . }}
         - name: PORT
           value: "4080"
         - name: PUBLIC_FILES_BASE_URL
-          value: http://localhost:3000
+          value: {{ template "reactioncommerce.api.url" . }}
         - name: PUBLIC_GRAPHQL_API_URL_HTTP
-          value: http://localhost:3000/graphql
+          value: "{{ template "reactioncommerce.api.url" . }}/graphql"
         - name: PUBLIC_GRAPHQL_API_URL_WS
-          value: ws://localhost:3000/graphql
+          value: "{{ template "reactioncommerce.api.socketUrl" . }}/graphql"
         - name: PUBLIC_I18N_BASE_URL
-          value: http://localhost:3000
+          value: {{ template "reactioncommerce.api.url" . }}
         - name: PUBLIC_STOREFRONT_HOME_URL
           value: {{ .Values.global.storeFrontUrl }}
         - name: ROOT_URL
