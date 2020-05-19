@@ -42,4 +42,6 @@ spec:
           value: {{ .Values.global.stripeKey }}
         - name: REACTION_SHOULD_INIT_REPLICA_SET
           value: "false"
+        - name: HYDRA_OAUTH2_INTROSPECT_URL
+          value: "{{ template "reactioncommerce.hydra.admin.url" . }}/oauth2/introspect"
 {{- end }}

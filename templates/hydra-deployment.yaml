@@ -60,7 +60,7 @@ spec:
         - name: URLS_CONSENT
           value: "{{ template "reactioncommerce.identity.url" . }}/consent"
         - name: URLS_ERROR
-          value: "{{ template "reactioncommerce.identity.url" . }}account/oauth-error"
+          value: "{{ template "reactioncommerce.identity.url" . }}/account/oauth-error"
         - name: URLS_LOGIN
           value: "{{ template "reactioncommerce.identity.url" . }}/login"
         - name: URLS_LOGOUT
