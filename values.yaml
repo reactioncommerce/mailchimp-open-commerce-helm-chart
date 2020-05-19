@@ -1,17 +1,15 @@
 global:
-  dnsZone: example.shop
-  storeFrontUrl: https://www.example.shop
   stripeKey: YOUR_PRIVATE_STRIPE_API_KEY
 admin:
   enabled: false
-  internalAlias: admin
+  ssl: true
+  host: admin.example.shop
   replicaCount: 2
   image:
     repository: reactioncommerce/admin
     tag: 3.0.0-beta.6
     pullPolicy: IfNotPresent
     # imagePullSecret:
-  rootUrl: https://admin.example.shop
   service:
     annotations: {}
     type: ClusterIP
@@ -25,14 +23,14 @@ admin:
       secretName: tls-secret
 api:
   enabled: true
-  internalAlias: api
+  host: api.example.shop
+  ssl: true
   replicaCount: 2
   image:
     repository: reactioncommerce/reaction
     tag: 3.7.1
     pullPolicy: IfNotPresent
     # imagePullSecret:
-  rootUrl: https://api.example.shop
   service:
     annotations: {}
     type: ClusterIP
@@ -46,14 +44,14 @@ api:
       secretName: tls-secret
 identity:
   enabled: false
-  internalAlias: identity
+  host: identity.example.shop
+  ssl: true
   replicaCount: 2
   image:
     repository: reactioncommerce/identity
     tag: 3.0.0
     pullPolicy: IfNotPresent
     # imagePullSecret:
-  rootUrl: https://identity.example.shop
   service:
     annotations: {}
     type: ClusterIP
@@ -67,14 +65,14 @@ identity:
       secretName: tls-secret
 web:
   enabled: false
-  internalAlias: web
+  host: www.example.shop
+  ssl: true
   replicaCount: 2
   image:
     repository: reactioncommerce/example-storefront
     tag: 3.0.0
     pullPolicy: IfNotPresent
     # imagePullSecret:
-  rootUrl: https://www.example.shop
   service:
     annotations: {}
     type: ClusterIP
@@ -88,13 +86,6 @@ web:
       secretName: tls-secret
 mongodb:
   enabled: true
-  image:
-    registry: docker.io
-    repository: bitnami/mongodb
-    tag: 4.2.6-debian-10-r34
-    pullPolicy: IfNotPresent
-    # pullSecrets:
-    #   - myRegistryKeySecretName
   usePassword: true
   # existingSecret: name-of-existing-secret
   mongodbDatabase: reaction
@@ -112,3 +103,48 @@ mongodb:
     replicas:
       secondary: 1
       arbiter: 1
+postgresql:
+  enabled: true 
+  postgresqlUsername: postgres
+  postgresqlPassword: hydra
+  postgresqlDatabase: hydra
+  service:
+    port: 5432
+  persistence:
+    enabled: true
+    # storageClass: classname
+    accessMode: ReadWriteOnce
+hydra:
+  enabled: true
+  replicaCount: 1
+  ssl: true
+  image:
+    repository: oryd/hydra
+    tag: v1.0.8
+    pullPolicy: IfNotPresent
+    # imagePullSecret:
+  pairwiseSalt: youReallyNeedToChangeThis
+  secretsSystem: youReallyNeedToChangeThis
+  service:
+    annotations: {}
+    type: ClusterIP
+  frontend:
+    host: hydra.example.shop
+    ingress:
+      enabled: false
+      path: ""
+      annotations: {}
+      livenessPath:
+      tls:
+        enabled: false
+        secretName: tls-secret
+  admin:
+    host: private.example.shop
+    ingress:
+      enabled: false
+      path: ""
+      annotations: {}
+      livenessPath:
+      tls:
+        enabled: false
+        secretName: tls-secret

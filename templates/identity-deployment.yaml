@@ -54,5 +54,5 @@ spec:
         - name: PORT
           value: "4100"
         - name: ROOT_URL
-          value: {{ .Values.identity.rootUrl }}
+          value: {{ template "reactioncommerce.identity.url" . }}
 {{- end }}

@@ -37,7 +37,7 @@ spec:
         - name: MONGO_URL
           value: "mongodb://{{ .Values.mongodb.mongodbUsername }}:{{ .Values.mongodb.mongodbPassword }}@{{ template "reactioncommerce.fullname" . }}-mongodb-headless.{{ .Release.Namespace }}.svc:27017/{{ .Values.mongodb.mongodbDatabase }}?replicaSet=rs0"
         - name: ROOT_URL
-          value: {{ .Values.api.rootUrl }}
+          value: {{ template "reactioncommerce.api.url" . }}
         - name: STRIPE_API_KEY
           value: {{ .Values.global.stripeKey }}
         - name: REACTION_SHOULD_INIT_REPLICA_SET

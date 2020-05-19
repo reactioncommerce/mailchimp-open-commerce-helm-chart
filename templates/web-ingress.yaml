@@ -1,6 +1,6 @@
 {{- if .Values.web.enabled -}}
 {{- if .Values.web.ingress.enabled -}}
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ template "reactioncommerce.fullname" . }}-web
@@ -24,10 +24,10 @@ spec:
   rules:
     - http:
         paths:
-          - path: {{ .Values.web.ingress.path }}
+          - path: {{ .Values.web.host }}
             backend:
               serviceName: {{ template "reactioncommerce.fullname" . }}-web
               servicePort: web
-      host: {{ .Values.web.internalAlias }}.{{ .Values.global.dnsZone }}
+      host: {{ .Values.web.host }}
 {{- end }}
 {{- end }}

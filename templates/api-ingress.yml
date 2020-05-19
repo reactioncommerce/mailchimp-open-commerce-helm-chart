@@ -1,6 +1,6 @@
 {{- if .Values.api.enabled -}}
 {{- if .Values.api.ingress.enabled -}}
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ template "reactioncommerce.fullname" . }}-api
@@ -18,7 +18,7 @@ spec:
 {{- if .Values.api.ingress.tls.enabled }}
   tls:
     - hosts:
-        - {{ .Values.api.internalAlias }}.{{ .Values.global.dnsZone }}
+        - {{ .Values.api.host }}
       secretName: {{ .Values.api.ingress.tls.secretName }}
 {{- end }}
   rules:
@@ -28,6 +28,6 @@ spec:
             backend:
               serviceName: {{ template "reactioncommerce.fullname" . }}-api
               servicePort: api
-      host: {{ .Values.api.internalAlias }}.{{ .Values.global.dnsZone }}
+      host: {{ .Values.api.host }}
 {{- end }}
 {{- end }}

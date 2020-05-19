@@ -34,7 +34,7 @@ spec:
               protocol: TCP
           env:
           - name: CANONICAL_URL
-            value: {{ .Values.identity.rootUrl }}
+            value: {{ template "reactioncommerce.web.url" . }}
           - name: ENABLE_SPA_ROUTING
             value: "true"
           - name: EXTERNAL_GRAPHQL_URL

@@ -63,5 +63,5 @@ spec:
         - name: PUBLIC_STOREFRONT_HOME_URL
           value: {{ .Values.global.storeFrontUrl }}
         - name: ROOT_URL
-          value: {{ .Values.admin.rootUrl }}
+          value: {{ template "reactioncommerce.admin.url" . }}
 {{- end }}
