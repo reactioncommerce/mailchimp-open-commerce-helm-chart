@@ -50,7 +50,7 @@ spec:
         - name: MONGO_URL
           value: "mongodb://root:{{ .Values.mongodb.mongodbRootPassword }}@{{ template "reactioncommerce.fullname" . }}-mongodb-headless.{{ .Release.Namespace }}.svc:27017/reaction?replicaSet=rs0&authSource=admin"
         - name: OAUTH2_CLIENT_DOMAINS
-          value: {{ .Values.global.storeFrontUrl }}
+          value: {{ template "reactioncommerce.web.url" . }}
         - name: PORT
           value: "4100"
         - name: ROOT_URL
