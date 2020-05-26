@@ -33,6 +33,8 @@ spec:
             containerPort: 4100
             protocol: TCP
         env:
+        - name: NODE_ENV
+          value: "production"
         - name: API_URL
           value: {{ .Values.api.rootUrl }}/graphql
         - name: HYDRA_ADMIN_URL

@@ -36,10 +36,8 @@ spec:
           #   containerPort: 9229
           #   protocol: TCP
         env:
-        - name: METEOR_DISABLE_OPTIMISTIC_CACHING
-          value: "1"
-        - name: METEOR_WATCH_POLLING_INTERVAL_MS
-          value: "10000"
+        - name: NODE_ENV
+          value: "production"
         - name: MONGO_OPLOG_URL
           value: "mongodb://root:{{ .Values.mongodb.mongodbRootPassword }}@{{ template "reactioncommerce.fullname" . }}-mongodb-headless.{{ .Release.Namespace }}.svc:27017/local?replicaSet=rs0&authSource=admin"
         - name: MONGO_URL
