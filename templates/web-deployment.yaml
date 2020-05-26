@@ -28,6 +28,10 @@ spec:
         - name: {{ .Chart.Name }}-web
           image: "{{ .Values.web.image.repository }}:{{ .Values.web.image.tag }}"
           imagePullPolicy: {{ .Values.web.image.pullPolicy }}
+          {{- if .Values.web.image.pullSecret }}
+          imagePullSecrets:
+            - name: {{ .Values.web.image.imagePullSecret }}
+          {{- end }}
           ports:
             - name: web
               containerPort: 4000
@@ -72,7 +76,7 @@ spec:
           - name: SESSION_MAX_AGE_MS
             value: "2592000000"
           - name: SESSION_SECRET
-            value: CHANGEME
+            value: {{ .Values.web.sessionSecret | default "CHANGEME" | quote  }}
           - name: STRIPE_PUBLIC_API_KEY
             value: {{ .Values.global.stripeKey }}
 {{- end }}

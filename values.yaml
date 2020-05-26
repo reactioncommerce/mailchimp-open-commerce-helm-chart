@@ -1,6 +1,29 @@
+##
+## Global configuration
 global:
+  ##
+  ## The Stripe secret key from your Stripe account dashboard. 
+  ## Required if you want Stripe payments to work.
   stripeKey: YOUR_PRIVATE_STRIPE_API_KEY
+
+  ##
+  ## Set this if you want to track storefront analytics such as 
+  ## page views with Segment. You can find this key on your Segment dashboard.
   segmentKey: YOUR_PRIVATE_SEGMENT_API_KEY
+
+  ##
+  ## The MongoDB database URL.
+  ## Note: This overrides the Mongo subchart values i.e. bring your own
+  # mongoUrl: 
+
+  ##
+  ## The oplog URL for the MongoDB deployment.
+  ## Note: This overrides the Mongo subchart values i.e. bring your own
+  # mongoOplogUrl: 
+  
+
+##
+## Admin panel configuration
 admin:
   enabled: true
   ssl: true
@@ -22,11 +45,24 @@ admin:
     tls:
       enabled: true
       secretName: tls-secret
+
+##
+## API configuration
 api:
   enabled: true
   host: api.example.shop
   ssl: true
   replicaCount: 2
+
+  ##
+  ## An SMTP mail url, e.g. smtp://user:pass@example.com:465, that is 
+  ## used to send all transactional emails from the email-smtp plugin.
+  # mailUrl: smtp://user:pass@example.com:465
+
+  ##
+  ## If this is true, on startup the API will auto-initialize a MongoDB 
+  ## replica set if one isn't found.
+  # initReplicaSet: false
   image:
     repository: reactioncommerce/reaction
     tag: 3.7.1
@@ -43,6 +79,9 @@ api:
     tls:
       enabled: true
       secretName: tls-secret
+
+##
+## Identity service configuration
 identity:
   enabled: true
   host: identity.example.shop
@@ -64,11 +103,15 @@ identity:
     tls:
       enabled: true
       secretName: tls-secret
+
+##
+## Example storefront configuration
 web:
   enabled: true
   host: www.example.shop
   ssl: true
   replicaCount: 2
+  # sessionSecret: CHANGEME
   image:
     repository: reactioncommerce/example-storefront
     tag: 3.0.0
@@ -85,6 +128,9 @@ web:
     tls:
       enabled: true
       secretName: tls-secret
+
+##
+## MongoDB chart configuration
 mongodb:
   enabled: true
   usePassword: true
@@ -101,17 +147,25 @@ mongodb:
     replicas:
       secondary: 1
       arbiter: 1
+
+##
+## PostgreSQL chart configuration (for Hydra)
 postgresql:
   enabled: true 
   postgresqlUsername: postgres
   postgresqlPassword: hydra
   postgresqlDatabase: hydra
+  # existingSecret: postgres-secret
+  # existingSecretKey: postgres-password
   service:
     port: 5432
   persistence:
     enabled: true
     # storageClass: classname
     accessMode: ReadWriteOnce
+
+##
+## Hydra chart configuration
 hydra:
   enabled: true
   replicaCount: 1
@@ -121,7 +175,17 @@ hydra:
     tag: v1.0.8
     pullPolicy: IfNotPresent
     # imagePullSecret:
+  
+  ##
+  ## Refer to https://www.ory.sh/docs/oryos.9/hydra/advanced#openid-connect
   pairwiseSalt: youReallyNeedToChangeThis
+
+  ##
+  ## A key or keys used to encrypt sensitive data using AES-GCM (256 bit) and
+  ## validate HMAC signatures. Must be at least 16 characters long. This may be
+  ## a single key or a comma-separated list where the first item in the list is 
+  ## used for signing and encryption and the whole list is used for verifying 
+  ## signatures and decryption. See https://www.ory.sh/docs/hydra/configuration
   secretsSystem: youReallyNeedToChangeThis
   service:
     annotations: {}
