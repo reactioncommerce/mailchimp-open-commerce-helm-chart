@@ -1,12 +1,15 @@
-on: push
 name: Lint
+on: push
 jobs:
-  helm-check:
+  lint-test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: helm-check
-      uses: igabaydulin/helm-check-action@0.1.4
-      env:
-        CHART_LOCATION: ./
-        CHART_VALUES: ./values.yaml
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Fetch history
+        run: git fetch --prune --unshallow
+      - name: Run chart-testing (lint)
+        id: lint
+        uses: helm/chart-testing-action@v1.0.0-rc.1
+        with:
+          command: lint
