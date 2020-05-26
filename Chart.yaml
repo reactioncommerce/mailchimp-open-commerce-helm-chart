@@ -10,7 +10,6 @@ description: Reaction Commerce is an API-first, modular commerce
 sources:
   - https://github.com/reactioncommerce/reaction
   - https://github.com/reactioncommerce/reaction-admin
-  - https://github.com/reactioncommerce/reaction-hydra
   - https://github.com/reactioncommerce/reaction-identity
   - https://github.com/reactioncommerce/example-storefront
 maintainers:

@@ -34,6 +34,8 @@ spec:
             containerPort: 3000
             protocol: TCP
         env:
+        - name: NODE_ENV
+          value: "production"
         - name: MONGO_URL
           value: "mongodb://root:{{ .Values.mongodb.mongodbRootPassword }}@{{ template "reactioncommerce.fullname" . }}-mongodb-headless.{{ .Release.Namespace }}.svc:27017/reaction?replicaSet=rs0&authSource=admin"
         - name: ROOT_URL
