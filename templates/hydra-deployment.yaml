@@ -24,14 +24,14 @@ spec:
         component: hydra
         release: {{ .Release.Name }}
     spec:
+      {{- if .Values.hydra.image.imagePullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.hydra.image.imagePullSecret }}
+      {{- end }}
       containers:
       - name: {{ .Chart.Name }}-hydra
         image: "{{ .Values.hydra.image.repository }}:{{ .Values.hydra.image.tag }}"
         imagePullPolicy: {{ .Values.hydra.image.pullPolicy }}
-        {{- if .Values.hydra.image.pullSecret }}
-        imagePullSecrets:
-          - name: {{ .Values.hydra.image.imagePullSecret }}
-        {{- end }}
         args:
           - serve
           - all

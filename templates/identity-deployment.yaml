@@ -24,14 +24,14 @@ spec:
         component: identity
         release: {{ .Release.Name }}
     spec:
+      {{- if .Values.identity.image.imagePullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.identity.image.imagePullSecret }}
+      {{- end }}
       containers:
       - name: {{ .Chart.Name }}-identity
         image: "{{ .Values.identity.image.repository }}:{{ .Values.identity.image.tag }}"
         imagePullPolicy: {{ .Values.identity.image.pullPolicy }}
-        {{- if .Values.identity.image.pullSecret }}
-        imagePullSecrets:
-          - name: {{ .Values.identity.image.imagePullSecret }}
-        {{- end }}
         ports:
           - name: identity
             containerPort: 4100
