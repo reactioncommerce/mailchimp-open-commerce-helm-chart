@@ -40,7 +40,7 @@ spec:
         env:
         - name: NODE_ENV
           value: "production"
-        {{- if .Values.global.mongoUrl }}
+        {{- if .Values.api.mailUrl }}
         - name: MAIL_URL
           value: {{ .Values.api.mailUrl }}
         {{- end }}
