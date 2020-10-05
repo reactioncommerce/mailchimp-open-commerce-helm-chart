@@ -86,8 +86,13 @@ spec:
           - -e
           - -y
         env:
+        {{- if .Values.global.postgresUrl }}
+        - name: DSN
+          value: "{{ .Values.global.postgresUrl }}"
+        {{- else }}
         - name: DSN
           value: "postgres://{{ .Values.postgresql.postgresqlUsername }}:{{ .Values.postgresql.postgresqlPassword }}@{{ template "reactioncommerce.fullname" . }}-postgresql-headless.{{ .Release.Namespace }}.svc:5432/{{ .Values.postgresql.postgresqlDatabase }}?sslmode=disable"
+        {{- end }}
         - name: OAUTH2_EXPOSE_INTERNAL_ERRORS
           value: "true"
         - name: OIDC_SUBJECT_IDENTIFIERS_ENABLED
