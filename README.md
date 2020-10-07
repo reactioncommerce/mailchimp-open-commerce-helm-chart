@@ -15,7 +15,7 @@ This chart packages the following components from the OSS platform:
 | [Reaction Admin](http://localhost:4080)        | A user interface for administrators and shop managers to configure shops, manage products, and process orders.                                                                                      |
 | [Example Storefront](http://localhost:4000)    | An example Reaction storefront UI built with [Next.JS](https://github.com/zeit/next.js/).
 
-Current chart version is `0.1.0`
+Current chart version is `0.2.1`
 
 Source code can be found [here](https://reactioncommerce.com/)
 
@@ -34,7 +34,7 @@ Source code can be found [here](https://reactioncommerce.com/)
 | admin.host | string | `"admin.example.shop"` | The hostname of the admin interface |
 | admin.image.pullPolicy | string | `"IfNotPresent"` | Default image pull policy  |
 | admin.image.repository | string | `"reactioncommerce/admin"` | Image repository |
-| admin.image.tag | string | `"3.0.0-beta.6"` | Image tag |
+| admin.image.tag | string | `"3.0.0-beta.10"` | Image tag |
 | admin.ingress.annotations | object | `{}` | A set of custom annotations to apply to the admin ingress resource |
 | admin.ingress.enabled | bool | `true` | Enable or disables the ingress resource |
 | admin.ingress.livenessPath | string | `nil` | Liveness probe path for the ingress |
@@ -45,21 +45,23 @@ Source code can be found [here](https://reactioncommerce.com/)
 | admin.service.annotations | object | `{}` | Service annotations |
 | admin.service.type | string | `"ClusterIP"` | Service type |
 | admin.ssl | bool | `true` | Enables external SSL support |
-| api.enabled | bool | `true` |  |
-| api.host | string | `"api.example.shop"` |  |
-| api.image.pullPolicy | string | `"IfNotPresent"` |  |
-| api.image.repository | string | `"reactioncommerce/reaction"` |  |
-| api.image.tag | string | `"3.7.1"` |  |
-| api.ingress.annotations | object | `{}` |  |
-| api.ingress.enabled | bool | `true` |  |
-| api.ingress.livenessPath | string | `nil` |  |
-| api.ingress.path | string | `""` |  |
-| api.ingress.tls.enabled | bool | `true` |  |
-| api.ingress.tls.secretName | string | `"tls-secret"` |  |
-| api.replicaCount | int | `2` |  |
-| api.service.annotations | object | `{}` |  |
-| api.service.type | string | `"ClusterIP"` |  |
-| api.ssl | bool | `true` |  |
+| api.enabled | bool | `true` | Enables or disables the reaction api |
+| api.enableGraphQlPlayground | bool | `false` | Serve the GraphQL Playground UI from /graphql |
+| api.enableGraphQlIntrospection | bool | `false` | Allow introspection of the GraphQL API. |
+| api.host | string | `"api.example.shop"` | The hostname of the reaction api |
+| api.image.pullPolicy | string | `"IfNotPresent"` | Default image pull policy |
+| api.image.repository | string | `"reactioncommerce/reaction"` | Image repository |
+| api.image.tag | string | `"3.10.0"` | Image tag |
+| api.ingress.annotations | object | `{}` | A set of custom annotations to apply to the api ingress resource  |
+| api.ingress.enabled | bool | `true` | Enable or disables the ingress resource |
+| api.ingress.livenessPath | string | `nil` | Liveness probe path for the ingress |
+| api.ingress.path | string | `""` | Default virtual path on the admin ingress |
+| api.ingress.tls.enabled | bool | `true` | Enables or disables TLS on the ingress |
+| api.ingress.tls.secretName | string | `"tls-secret"` | Secret path for tls certs |
+| api.replicaCount | int | `2` | Pod replica count |
+| api.service.annotations | object | `{}` | Service annotations |
+| api.service.type | string | `"ClusterIP"` | Service type |
+| api.ssl | bool | `true` | Enables external SSL support |
 | global.segmentKey | string | `"YOUR_PRIVATE_SEGMENT_API_KEY"` | Set this if you want to track storefront analytics such as page views with Segment. You can find this key on your Segment dashboard |
 | global.stripeKey | string | `"YOUR_PRIVATE_STRIPE_API_KEY"` | The Stripe secret key from your Stripe account dashboard. |
 | hydra.admin.host | string | `"private.example.shop"` |  |
@@ -90,7 +92,7 @@ Source code can be found [here](https://reactioncommerce.com/)
 | identity.host | string | `"identity.example.shop"` |  |
 | identity.image.pullPolicy | string | `"IfNotPresent"` |  |
 | identity.image.repository | string | `"reactioncommerce/identity"` |  |
-| identity.image.tag | string | `"3.0.0"` |  |
+| identity.image.tag | string | `"3.3.0"` |  |
 | identity.ingress.annotations | object | `{}` |  |
 | identity.ingress.enabled | bool | `true` |  |
 | identity.ingress.livenessPath | string | `nil` |  |
@@ -123,7 +125,7 @@ Source code can be found [here](https://reactioncommerce.com/)
 | web.host | string | `"www.example.shop"` |  |
 | web.image.pullPolicy | string | `"IfNotPresent"` |  |
 | web.image.repository | string | `"reactioncommerce/example-storefront"` |  |
-| web.image.tag | string | `"3.0.0"` |  |
+| web.image.tag | string | `"4.0.0"` |  |
 | web.ingress.annotations | object | `{}` |  |
 | web.ingress.enabled | bool | `true` |  |
 | web.ingress.livenessPath | string | `nil` |  |
