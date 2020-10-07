@@ -61,6 +61,14 @@ api:
   replicaCount: 2
 
   ##
+  ## Serve the GraphQL Playground UI from /graphql
+  # enableGraphQlPlayground: false
+
+  ##
+  ## Allow introspection of the GraphQL API.
+  # enableGraphQlIntrospection: false
+
+  ##
   ## An SMTP mail url, e.g. smtp://user:pass@example.com:465, that is 
   ## used to send all transactional emails from the email-smtp plugin.
   # mailUrl: smtp://user:pass@example.com:465
