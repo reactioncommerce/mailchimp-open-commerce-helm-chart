@@ -76,4 +76,8 @@ spec:
           value: {{ template "reactioncommerce.web.url" . }}
         - name: ROOT_URL
           value: {{ template "reactioncommerce.admin.url" . }}
+        - name: GRAPHQL_PLAYGROUND_ENABLED
+          value: {{ .Values.api.enableGraphQlPlayground | default "false" | quote }}
+        - name: GRAPHQL_INTROSPECTION_ENABLED
+          value: {{ .Values.api.enableGraphQlIntrospection | default "false" | quote }}
 {{- end }}
