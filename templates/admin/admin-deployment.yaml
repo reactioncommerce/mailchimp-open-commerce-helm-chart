@@ -24,14 +24,14 @@ spec:
         component: admin
         release: {{ .Release.Name }}
     spec:
+      {{- if .Values.admin.image.imagePullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.admin.image.imagePullSecret }}
+      {{- end }}
       containers:
       - name: {{ .Chart.Name }}-admin
         image: "{{ .Values.admin.image.repository }}:{{ .Values.admin.image.tag }}"
         imagePullPolicy: {{ .Values.admin.image.pullPolicy }}
-        {{- if .Values.admin.image.pullSecret }}
-        imagePullSecrets:
-          - name: {{ .Values.admin.image.imagePullSecret }}
-        {{- end }}
         ports:
           - name: admin
             containerPort: 4080
@@ -76,4 +76,8 @@ spec:
           value: {{ template "reactioncommerce.web.url" . }}
         - name: ROOT_URL
           value: {{ template "reactioncommerce.admin.url" . }}
+        - name: GRAPHQL_PLAYGROUND_ENABLED
+          value: {{ .Values.api.enableGraphQlPlayground | default "false" | quote }}
+        - name: GRAPHQL_INTROSPECTION_ENABLED
+          value: {{ .Values.api.enableGraphQlIntrospection | default "false" | quote }}
 {{- end }}
