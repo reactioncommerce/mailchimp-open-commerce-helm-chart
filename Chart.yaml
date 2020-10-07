@@ -1,7 +1,7 @@
 apiVersion: v1
 name: reactioncommerce
 home: https://reactioncommerce.com/
-version: 0.1.0
+version: 0.2.1
 appVersion: 3.7.1
 description: Reaction Commerce is an API-first, modular commerce 
  stack made for ambitious brands and retailers. Reaction’s
