@@ -1,0 +1,37 @@
+{{- if .Values.web.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ template "reactioncommerce.name" . }}
+    component: web
+    chart: {{ template "reactioncommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "reactioncommerce.fullname" . }}-web
+  namespace: {{ .Release.Namespace | quote }} 
+data:
+  ## Force UTC timezone
+  TZ: "Etc/UTC"
+  NODE_ENV: "production"
+  CANONICAL_URL: {{ include "reactioncommerce.web.url" . | quote }}
+  ENABLE_SPA_ROUTING: "true"
+  EXTERNAL_GRAPHQL_URL: {{ printf "%s/graphql" ( include "reactioncommerce.api.url" . ) | quote }}
+  INTERNAL_GRAPHQL_URL: {{ printf "http://%s-api.%s.svc/graphql:3000" ( include "reactioncommerce.fullname" . ) .Release.Namespace | quote }}
+  OAUTH2_ADMIN_PORT: "4445"
+  OAUTH2_ADMIN_URL: {{ printf "http://%s-hydra.%s.svc:4445" ( include "reactioncommerce.fullname" . ) .Release.Namespace | quote }}
+  OAUTH2_AUTH_URL: {{ printf "%s/oauth2/auth" ( include "reactioncommerce.hydra.frontend.url" . ) | quote }}
+  OAUTH2_CLIENT_ID: "example-storefront"
+  OAUTH2_CLIENT_SECRET: "CHANGEME"
+  OAUTH2_HOST: {{ printf "%s-hydra.%s.svc" ( include "reactioncommerce.fullname" . ) .Release.Namespace | quote }}
+  OAUTH2_IDP_HOST_URL: {{ printf "http://%s-identity.%s.svc:4100" ( include "reactioncommerce.fullname" . ) .Release.Namespace | quote }}
+  OAUTH2_IDP_PUBLIC_CHANGE_PASSWORD_URL: {{ printf "%s/account/change-password?email=EMAIL&from=FROM" ( include "reactioncommerce.identity.url" . ) | quote }}
+  OAUTH2_PUBLIC_LOGOUT_URL: {{ printf "%s/oauth2/sessions/logout" ( include "reactioncommerce.hydra.frontend.url" . ) | quote }}
+  OAUTH2_TOKEN_URL: {{ printf "%s/oauth2/token" ( include "reactioncommerce.hydra.frontend.url" . ) | quote }}
+  PORT: "4000"
+  SEGMENT_ANALYTICS_SKIP_MINIMIZE: "true"
+  SEGMENT_ANALYTICS_WRITE_KEY: {{ .Values.global.segmentKey | quote }}
+  SESSION_MAX_AGE_MS: "2592000000"
+  SESSION_SECRET: {{ .Values.web.sessionSecret | default "CHANGEME" | quote }}
+  STRIPE_PUBLIC_API_KEY: {{ .Values.global.stripeKey | quote }}
+{{- end }}
