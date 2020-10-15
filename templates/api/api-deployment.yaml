@@ -37,32 +37,7 @@ spec:
           - name: api
             containerPort: 3000
             protocol: TCP
-        env:
-        - name: NODE_ENV
-          value: "production"
-        {{- if .Values.api.mailUrl }}
-        - name: MAIL_URL
-          value: {{ .Values.api.mailUrl }}
-        {{- end }}
-        - name: REACTION_IDENTITY_PUBLIC_PASSWORD_RESET_URL
-          value: "{{ template "reactioncommerce.identity.url" . }}/account/reset-password/TOKEN"
-        - name: REACTION_IDENTITY_PUBLIC_VERIFY_EMAIL_URL
-          value: "{{ template "reactioncommerce.identity.url" . }}/#/verify-email/TOKEN"
-        - name: REACTION_ADMIN_PUBLIC_ACCOUNT_REGISTRATION_URL
-          value: {{ template "reactioncommerce.admin.url" . }}
-        {{- if .Values.global.mongoUrl }}
-        - name: MONGO_URL
-          value: {{ .Values.global.mongoUrl }}
-        {{- else }}
-        - name: MONGO_URL
-          value: "mongodb://root:{{ .Values.mongodb.mongodbRootPassword }}@{{ template "reactioncommerce.fullname" . }}-mongodb-headless.{{ .Release.Namespace }}.svc:27017/reaction?replicaSet=rs0&authSource=admin"
-        {{- end }}
-        - name: ROOT_URL
-          value: {{ template "reactioncommerce.api.url" . }}
-        - name: STRIPE_API_KEY
-          value: {{ .Values.global.stripeKey }}
-        - name: REACTION_SHOULD_INIT_REPLICA_SET
-          value: {{ .Values.api.initReplicaSet | default "false" | quote  }}
-        - name: HYDRA_OAUTH2_INTROSPECT_URL
-          value: "{{ template "reactioncommerce.hydra.admin.url" . }}/oauth2/introspect"
+        envFrom:
+          - configMapRef:
+              name: {{ template "reactioncommerce.fullname" . }}-api
 {{- end }}
