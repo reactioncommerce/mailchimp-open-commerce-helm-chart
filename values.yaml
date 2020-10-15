@@ -97,7 +97,7 @@ api:
 ##
 ## Identity service configuration
 identity:
-  enabled: true
+  enabled: false
   host: identity.example.shop
   ssl: true
   replicaCount: 2
@@ -121,7 +121,7 @@ identity:
 ##
 ## Example storefront configuration
 web:
-  enabled: false
+  enabled: true
   host: www.example.shop
   ssl: true
   replicaCount: 2

@@ -2,7 +2,7 @@
   <img width="410" height="70" src="https://user-images.githubusercontent.com/8715048/95626402-1c2a0f00-0a72-11eb-8785-500fc1c53187.png">
 </p>
 <p align="center">
-  <a target="_blank" href="https://github.com/slingshotlabs/reaction-oss-helm-chart/workflows/lint/badge.svg"><img src="https://github.com/slingshotlabs/reaction-oss-helm-chart/workflows/lint/badge.svg" alt="lint" style="max-width:100%;"></a>
+  <a target="_blank" href="https://github.com/slingshotlabs/reaction-oss-helm-chart/actions?query=workflow%3Alint"><img src="https://github.com/slingshotlabs/reaction-oss-helm-chart/workflows/lint/badge.svg" alt="lint" style="max-width:100%;"></a>
 </p>
 <p align="center"><a href="https://reactioncommerce.com/" target="_blank">Reaction Commerce</a> OSS Helm Chart</p>
 
