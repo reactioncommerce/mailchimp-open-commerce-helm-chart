@@ -115,7 +115,7 @@ identity:
 ##
 ## Example storefront configuration
 web:
-  enabled: true
+  enabled: false
   host: www.example.shop
   ssl: true
   replicaCount: 2
@@ -175,7 +175,7 @@ postgresql:
 ##
 ## Hydra chart configuration
 hydra:
-  enabled: false
+  enabled: true
   replicaCount: 1
   ssl: true
   image:
