@@ -25,7 +25,7 @@ global:
 ##
 ## Admin panel configuration
 admin:
-  enabled: true
+  enabled: false
   ssl: true
   host: admin.example.shop
   replicaCount: 2
@@ -91,7 +91,7 @@ api:
 ##
 ## Identity service configuration
 identity:
-  enabled: false
+  enabled: true
   host: identity.example.shop
   ssl: true
   replicaCount: 2
