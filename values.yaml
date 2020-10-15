@@ -31,7 +31,7 @@ global:
 ##
 ## Admin panel configuration
 admin:
-  enabled: false
+  enabled: true
   ssl: true
   host: admin.example.shop
   replicaCount: 2
@@ -55,7 +55,7 @@ admin:
 ##
 ## API configuration
 api:
-  enabled: true
+  enabled: false
   host: api.example.shop
   ssl: true
   replicaCount: 2
