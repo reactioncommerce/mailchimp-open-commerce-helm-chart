@@ -31,7 +31,7 @@ global:
 ##
 ## Admin panel configuration
 admin:
-  enabled: false
+  enabled: true
   ssl: true
   host: admin.example.shop
   replicaCount: 2
@@ -55,7 +55,7 @@ admin:
 ##
 ## API configuration
 api:
-  enabled: false
+  enabled: true
   host: api.example.shop
   ssl: true
   replicaCount: 2
@@ -97,7 +97,7 @@ api:
 ##
 ## Identity service configuration
 identity:
-  enabled: false
+  enabled: true
   host: identity.example.shop
   ssl: true
   replicaCount: 2
@@ -121,7 +121,7 @@ identity:
 ##
 ## Example storefront configuration
 web:
-  enabled: false
+  enabled: true
   host: www.example.shop
   ssl: true
   replicaCount: 2
@@ -146,7 +146,7 @@ web:
 ##
 ## MongoDB chart configuration
 mongodb:
-  enabled: false
+  enabled: true
   usePassword: true
   # existingSecret: name-of-existing-secret
   mongodbRootPassword: reaction
@@ -165,7 +165,7 @@ mongodb:
 ##
 ## PostgreSQL chart configuration (for Hydra)
 postgresql:
-  enabled: false 
+  enabled: true 
   postgresqlUsername: postgres
   postgresqlPassword: hydra
   postgresqlDatabase: hydra
