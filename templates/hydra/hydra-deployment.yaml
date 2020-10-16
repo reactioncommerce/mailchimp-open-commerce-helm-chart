@@ -1,0 +1,68 @@
+{{- if .Values.hydra.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ template "reactioncommerce.name" . }}
+    component: hydra
+    chart: {{ template "reactioncommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "reactioncommerce.fullname" . }}-hydra
+  namespace: {{ .Release.Namespace | quote }} 
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "reactioncommerce.name" . }}
+      component: hydra
+      release: {{ .Release.Name }}
+  replicas: {{ .Values.hydra.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "reactioncommerce.name" . }}
+        component: hydra
+        release: {{ .Release.Name }}
+    spec:
+      {{- if .Values.hydra.image.imagePullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.hydra.image.imagePullSecret }}
+      {{- end }}
+      containers:
+      - name: {{ .Chart.Name }}-hydra
+        image: "{{ .Values.hydra.image.repository }}:{{ .Values.hydra.image.tag }}"
+        imagePullPolicy: {{ .Values.hydra.image.pullPolicy }}
+        args:
+          - serve
+          - all
+          - --dangerous-force-http
+        ports:
+          - name: hydra
+            containerPort: 4444
+            protocol: TCP
+          - name: admin
+            containerPort: 4445
+            protocol: TCP
+          - name: tokens
+            containerPort: 5555
+            protocol: TCP
+        envFrom:
+          - secretRef:
+              name: {{ template "reactioncommerce.fullname" . }}
+          - configMapRef:
+              name: {{ template "reactioncommerce.fullname" . }}-hydra
+      initContainers:
+      - name: {{ .Chart.Name }}-hydra-migrate
+        image: "{{ .Values.hydra.image.repository }}:{{ .Values.hydra.image.tag }}"
+        imagePullPolicy: {{ .Values.hydra.image.pullPolicy }}
+        args:
+          - migrate
+          - sql
+          - -e
+          - -y
+        envFrom:
+          - secretRef:
+              name: {{ template "reactioncommerce.fullname" . }}
+          - configMapRef:
+              name: {{ template "reactioncommerce.fullname" . }}-hydra
+{{- end }}

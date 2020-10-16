@@ -37,6 +37,8 @@ spec:
             containerPort: 4100
             protocol: TCP
         envFrom:
+          - secretRef:
+              name: {{ template "reactioncommerce.fullname" . }}
           - configMapRef:
               name: {{ template "reactioncommerce.fullname" . }}-identity
 {{- end }}

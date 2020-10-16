@@ -79,7 +79,7 @@ api:
   # initReplicaSet: false
   image:
     repository: reactioncommerce/reaction
-    tag: 3.10.0
+    tag: 3.9.0
     pullPolicy: IfNotPresent
     # imagePullSecret:
   service:
@@ -128,7 +128,7 @@ web:
   # sessionSecret: CHANGEME
   image:
     repository: reactioncommerce/example-storefront
-    tag: 4.0.0
+    tag: 3.1.0
     pullPolicy: IfNotPresent
     # imagePullSecret:
   service:
