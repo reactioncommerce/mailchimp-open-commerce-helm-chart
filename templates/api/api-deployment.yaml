@@ -38,6 +38,8 @@ spec:
             containerPort: 3000
             protocol: TCP
         envFrom:
+          - secretRef:
+              name: {{ template "reactioncommerce.fullname" . }}
           - configMapRef:
               name: {{ template "reactioncommerce.fullname" . }}-api
 {{- end }}

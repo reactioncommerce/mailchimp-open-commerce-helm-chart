@@ -40,6 +40,8 @@ spec:
           #   containerPort: 9229
           #   protocol: TCP
         envFrom:
+          - secretRef:
+              name: {{ template "reactioncommerce.fullname" . }}
           - configMapRef:
               name: {{ template "reactioncommerce.fullname" . }}-admin
 {{- end }}

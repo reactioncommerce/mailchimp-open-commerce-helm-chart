@@ -14,16 +14,6 @@ data:
   ## Force UTC timezone
   TZ: "Etc/UTC"
   NODE_ENV: "production"
-  {{- if .Values.global.mongoOplogUrl }}
-  MONGO_OPLOG_URL: {{ .Values.global.mongoOplogUrl | quote }}
-  {{- else }}
-  MONGO_OPLOG_URL: {{ printf "mongodb://root:%s@%s-mongodb-headless.%s.svc:27017/local?replicaSet=rs0&authSource=admin" .Values.mongodb.mongodbRootPassword ( include "reactioncommerce.fullname" . ) .Release.Namespace | quote }}
-  {{- end }}
-  {{- if .Values.global.mongoUrl }}
-  MONGO_URL: {{ .Values.global.mongoUrl | quote }}
-  {{- else }}
-  MONGO_URL: {{ printf "mongodb://root:%s@%s-mongodb-headless.%s.svc:27017/reaction?replicaSet=rs0&authSource=admin" .Values.mongodb.mongodbRootPassword ( include "reactioncommerce.fullname" . ) .Release.Namespace | quote }}
-  {{- end }}
   OAUTH2_ADMIN_URL: {{ printf "http://%s-hydra.%s.svc:4445" ( include "reactioncommerce.fullname" . ) .Release.Namespace | quote }}
   OAUTH2_IDP_PUBLIC_CHANGE_PASSWORD_URL: {{ printf "%s/account/change-password?email=EMAIL&from=FROM" ( include "reactioncommerce.identity.url" . ) | quote }}
   OAUTH2_PUBLIC_URL: {{ include "reactioncommerce.hydra.frontend.url" . | quote }}

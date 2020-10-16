@@ -14,19 +14,10 @@ data:
   ## Force UTC timezone
   TZ: "Etc/UTC"
   NODE_ENV: "production"
-  {{- if .Values.api.mailUrl }}
-  MAIL_URL: {{ .Values.api.mailUrl | quote }}
-  {{- end }}
   REACTION_IDENTITY_PUBLIC_PASSWORD_RESET_URL: {{ printf "%s/account/reset-password/TOKEN" ( include "reactioncommerce.identity.url" . ) | quote }}
   REACTION_IDENTITY_PUBLIC_VERIFY_EMAIL_URL: {{ printf "%s/#/verify-email/TOKEN" ( include "reactioncommerce.identity.url" . ) | quote }}
   REACTION_ADMIN_PUBLIC_ACCOUNT_REGISTRATION_URL: {{ include "reactioncommerce.admin.url" . | quote }}
-  {{- if .Values.global.mongoUrl }}
-  MONGO_URL: {{ .Values.global.mongoUrl | quote }}
-  {{- else }}
-  MONGO_URL: {{ printf "mongodb://root:%s@%s-mongodb-headless.%s.svc:27017/reaction?replicaSet=rs0&authSource=admin" .Values.mongodb.mongodbRootPassword ( include "reactioncommerce.fullname" . ) .Release.Namespace | quote }}
-  {{- end }}
   ROOT_URL: {{ include "reactioncommerce.api.url" . | quote }}
-  STRIPE_API_KEY: {{ .Values.global.stripeKey | quote }}
   REACTION_SHOULD_INIT_REPLICA_SET: {{ .Values.api.initReplicaSet | default "false" | quote }}
   HYDRA_OAUTH2_INTROSPECT_URL: {{ printf "%s/oauth2/introspect" ( include "reactioncommerce.hydra.admin.url" . ) | quote }}
 {{- end }}
