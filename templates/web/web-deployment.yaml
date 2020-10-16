@@ -36,47 +36,9 @@ spec:
             - name: web
               containerPort: 4000
               protocol: TCP
-          env:
-          - name: NODE_ENV
-            value: "production"
-          - name: CANONICAL_URL
-            value: {{ template "reactioncommerce.web.url" . }}
-          - name: ENABLE_SPA_ROUTING
-            value: "true"
-          - name: EXTERNAL_GRAPHQL_URL
-            value: "{{ template "reactioncommerce.api.url" . }}/graphql"
-          - name: INTERNAL_GRAPHQL_URL
-            value: {{ template "reactioncommerce.api.url" . }}/graphql
-          - name: OAUTH2_ADMIN_PORT
-            value: "4445"
-          - name: OAUTH2_ADMIN_URL
-            value: "http://{{ template "reactioncommerce.fullname" . }}-hydra.{{ .Release.Namespace }}.svc:4445"
-          - name: OAUTH2_AUTH_URL
-            value: "{{ template "reactioncommerce.hydra.frontend.url" . }}/oauth2/auth"
-          - name: OAUTH2_CLIENT_ID
-            value: example-storefront
-          - name: OAUTH2_CLIENT_SECRET
-            value: CHANGEME
-          - name: OAUTH2_HOST
-            value: "{{ template "reactioncommerce.fullname" . }}-hydra.{{ .Release.Namespace }}.svc"
-          - name: OAUTH2_IDP_HOST_URL
-            value: "http://{{ template "reactioncommerce.fullname" . }}-identity.{{ .Release.Namespace }}.svc:4100"
-          - name: OAUTH2_IDP_PUBLIC_CHANGE_PASSWORD_URL
-            value: "{{ template "reactioncommerce.identity.url" . }}/account/change-password?email=EMAIL&from=FROM"
-          - name: OAUTH2_PUBLIC_LOGOUT_URL
-            value: "{{ template "reactioncommerce.hydra.frontend.url" . }}/oauth2/sessions/logout"
-          - name: OAUTH2_TOKEN_URL
-            value: "{{ template "reactioncommerce.hydra.frontend.url" . }}/oauth2/token"
-          - name: PORT
-            value: "4000"
-          - name: SEGMENT_ANALYTICS_SKIP_MINIMIZE
-            value: "true"
-          - name: SEGMENT_ANALYTICS_WRITE_KEY
-            value: {{ .Values.global.segmentKey }}
-          - name: SESSION_MAX_AGE_MS
-            value: "2592000000"
-          - name: SESSION_SECRET
-            value: {{ .Values.web.sessionSecret | default "CHANGEME" | quote  }}
-          - name: STRIPE_PUBLIC_API_KEY
-            value: {{ .Values.global.stripeKey }}
+          envFrom:
+            - secretRef:
+                name: {{ template "reactioncommerce.fullname" . }}
+            - configMapRef:
+                name: {{ template "reactioncommerce.fullname" . }}-web
 {{- end }}

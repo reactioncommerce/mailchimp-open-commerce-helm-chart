@@ -46,31 +46,11 @@ spec:
           - name: tokens
             containerPort: 5555
             protocol: TCP
-        env:
-        - name: DSN
-          value: "postgres://{{ .Values.postgresql.postgresqlUsername }}:{{ .Values.postgresql.postgresqlPassword }}@{{ template "reactioncommerce.fullname" . }}-postgresql-headless.{{ .Release.Namespace }}.svc:5432/{{ .Values.postgresql.postgresqlDatabase }}?sslmode=disable"
-        - name: OAUTH2_EXPOSE_INTERNAL_ERRORS
-          value: "true"
-        - name: OIDC_SUBJECT_IDENTIFIERS_ENABLED
-          value: "true"
-        - name: OIDC_SUBJECT_IDENTIFIERS_PAIRWISE_SALT
-          value: {{ .Values.hydra.pairwiseSalt }}
-        - name: SECRETS_SYSTEM
-          value: {{ .Values.hydra.secretsSystem }}
-        - name: SERVE_PUBLIC_CORS_ALLOWED_ORIGINS
-          value: {{ template "reactioncommerce.admin.url" . }}
-        - name: SERVE_PUBLIC_CORS_ENABLED
-          value: "true"
-        - name: URLS_CONSENT
-          value: "{{ template "reactioncommerce.identity.url" . }}/consent"
-        - name: URLS_ERROR
-          value: "{{ template "reactioncommerce.identity.url" . }}/account/oauth-error"
-        - name: URLS_LOGIN
-          value: "{{ template "reactioncommerce.identity.url" . }}/login"
-        - name: URLS_LOGOUT
-          value: "{{ template "reactioncommerce.identity.url" . }}/logout"
-        - name: URLS_SELF_ISSUER
-          value: {{ template "reactioncommerce.hydra.frontend.url" . }}
+        envFrom:
+          - secretRef:
+              name: {{ template "reactioncommerce.fullname" . }}
+          - configMapRef:
+              name: {{ template "reactioncommerce.fullname" . }}-hydra
       initContainers:
       - name: {{ .Chart.Name }}-hydra-migrate
         image: "{{ .Values.hydra.image.repository }}:{{ .Values.hydra.image.tag }}"
@@ -80,29 +60,9 @@ spec:
           - sql
           - -e
           - -y
-        env:
-        - name: DSN
-          value: "postgres://{{ .Values.postgresql.postgresqlUsername }}:{{ .Values.postgresql.postgresqlPassword }}@{{ template "reactioncommerce.fullname" . }}-postgresql-headless.{{ .Release.Namespace }}.svc:5432/{{ .Values.postgresql.postgresqlDatabase }}?sslmode=disable"
-        - name: OAUTH2_EXPOSE_INTERNAL_ERRORS
-          value: "true"
-        - name: OIDC_SUBJECT_IDENTIFIERS_ENABLED
-          value: "true"
-        - name: OIDC_SUBJECT_IDENTIFIERS_PAIRWISE_SALT
-          value: {{ .Values.hydra.pairwiseSalt }}
-        - name: SECRETS_SYSTEM
-          value: {{ .Values.hydra.secretsSystem }}
-        - name: SERVE_PUBLIC_CORS_ALLOWED_ORIGINS
-          value: {{ template "reactioncommerce.admin.url" . }}
-        - name: SERVE_PUBLIC_CORS_ENABLED
-          value: "true"
-        - name: URLS_CONSENT
-          value: "{{ template "reactioncommerce.identity.url" . }}/consent"
-        - name: URLS_ERROR
-          value: "{{ template "reactioncommerce.identity.url" . }}account/oauth-error"
-        - name: URLS_LOGIN
-          value: "{{ template "reactioncommerce.identity.url" . }}/login"
-        - name: URLS_LOGOUT
-          value: "{{ template "reactioncommerce.identity.url" . }}/logout"
-        - name: URLS_SELF_ISSUER
-          value: {{ template "reactioncommerce.hydra.frontend.url" . }}
+        envFrom:
+          - secretRef:
+              name: {{ template "reactioncommerce.fullname" . }}
+          - configMapRef:
+              name: {{ template "reactioncommerce.fullname" . }}-hydra
 {{- end }}
