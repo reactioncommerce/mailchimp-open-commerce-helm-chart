@@ -1,5 +1,10 @@
-# Reaction OSS Helm Chart
-![lint](https://github.com/slingshotlabs/reaction-oss-helm-chart/workflows/lint/badge.svg)
+<p align="center">
+  <img width="410" height="70" src="https://user-images.githubusercontent.com/8715048/95626402-1c2a0f00-0a72-11eb-8785-500fc1c53187.png">
+</p>
+<p align="center">
+  <a target="_blank" href="https://github.com/slingshotlabs/reaction-oss-helm-chart/actions?query=workflow%3Alint"><img src="https://github.com/slingshotlabs/reaction-oss-helm-chart/workflows/lint/badge.svg" alt="lint" style="max-width:100%;"></a>
+</p>
+<p align="center"><a href="https://reactioncommerce.com/" target="_blank">Reaction Commerce</a> OSS Helm Chart</p>
 
 This repository contains a helm chart for deploying the open source Reaction Commerce platform ontop of Kubernetes/Openshift. We also published a [blog post](https://slingshotlabs.io/blog/deploying-reaction-commerce-on-kubernetes/) that outlines how to use this helm chart to deploy Reaction Commerce on Kubernetes.
 

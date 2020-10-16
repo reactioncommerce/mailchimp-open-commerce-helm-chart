@@ -1,0 +1,29 @@
+{{- if .Values.admin.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ template "reactioncommerce.name" . }}
+    component: admin
+    chart: {{ template "reactioncommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "reactioncommerce.fullname" . }}-admin
+  namespace: {{ .Release.Namespace | quote }} 
+data:
+  ## Force UTC timezone
+  TZ: "Etc/UTC"
+  NODE_ENV: "production"
+  OAUTH2_ADMIN_URL: {{ printf "http://%s-hydra.%s.svc:4445" ( include "reactioncommerce.fullname" . ) .Release.Namespace | quote }}
+  OAUTH2_IDP_PUBLIC_CHANGE_PASSWORD_URL: {{ printf "%s/account/change-password?email=EMAIL&from=FROM" ( include "reactioncommerce.identity.url" . ) | quote }}
+  OAUTH2_PUBLIC_URL: {{ include "reactioncommerce.hydra.frontend.url" . | quote }}
+  PORT: "4080"
+  PUBLIC_FILES_BASE_URL: {{ include "reactioncommerce.api.url" . | quote }}
+  PUBLIC_GRAPHQL_API_URL_HTTP: {{ printf "%s/graphql" ( include "reactioncommerce.api.url" . ) | quote }}
+  PUBLIC_GRAPHQL_API_URL_WS: {{ printf "%s/graphql" ( include "reactioncommerce.api.socketUrl" . ) | quote }}
+  PUBLIC_I18N_BASE_URL: {{ include "reactioncommerce.api.url" . | quote }}
+  PUBLIC_STOREFRONT_HOME_URL: {{ include "reactioncommerce.web.url" . | quote }}
+  ROOT_URL: {{ include "reactioncommerce.admin.url" . | quote }}
+  GRAPHQL_PLAYGROUND_ENABLED: {{ .Values.api.enableGraphQlPlayground | default "false" | quote }}
+  GRAPHQL_INTROSPECTION_ENABLED: {{ .Values.api.enableGraphQlIntrospection | default "false" | quote }}
+{{- end }}
