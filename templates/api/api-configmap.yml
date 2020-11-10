@@ -20,4 +20,6 @@ data:
   ROOT_URL: {{ include "reactioncommerce.api.url" . | quote }}
   REACTION_SHOULD_INIT_REPLICA_SET: {{ .Values.api.initReplicaSet | default "false" | quote }}
   HYDRA_OAUTH2_INTROSPECT_URL: {{ printf "%s/oauth2/introspect" ( include "reactioncommerce.hydra.admin.url" . ) | quote }}
+  GRAPHQL_PLAYGROUND_ENABLED: {{ .Values.api.enableGraphQlPlayground | default "false" | quote }}
+  GRAPHQL_INTROSPECTION_ENABLED: {{ .Values.api.enableGraphQlIntrospection | default "false" | quote }}
 {{- end }}
