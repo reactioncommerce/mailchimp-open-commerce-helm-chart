@@ -20,7 +20,7 @@ This chart packages the following components from the OSS platform:
 | [Reaction Admin](http://localhost:4080)        | A user interface for administrators and shop managers to configure shops, manage products, and process orders.                                                                                      |
 | [Example Storefront](http://localhost:4000)    | An example Reaction storefront UI built with [Next.JS](https://github.com/zeit/next.js/).
 
-Current chart version is `0.2.1`
+Current chart version is `0.2.4`
 
 Source code can be found [here](https://reactioncommerce.com/)
 
