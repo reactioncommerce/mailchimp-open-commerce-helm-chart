@@ -20,6 +20,12 @@ global:
   ## The oplog URL for the MongoDB deployment.
   ## Note: This overrides the Mongo subchart values i.e. bring your own
   # mongoOplogUrl: 
+
+  ##
+  ## The Postgres database URL.
+  ## Note: This overrides the Postgres subchart values i.e. bring your own
+  # postgresUrl: postgres://<username>:<password>@example_rds.amazonaws.com:5432/hydra_database_name
+
   
 
 ##
