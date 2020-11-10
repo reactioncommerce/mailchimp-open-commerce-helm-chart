@@ -24,6 +24,4 @@ data:
   PUBLIC_I18N_BASE_URL: {{ include "reactioncommerce.api.url" . | quote }}
   PUBLIC_STOREFRONT_HOME_URL: {{ include "reactioncommerce.web.url" . | quote }}
   ROOT_URL: {{ include "reactioncommerce.admin.url" . | quote }}
-  GRAPHQL_PLAYGROUND_ENABLED: {{ .Values.api.enableGraphQlPlayground | default "false" | quote }}
-  GRAPHQL_INTROSPECTION_ENABLED: {{ .Values.api.enableGraphQlIntrospection | default "false" | quote }}
 {{- end }}
