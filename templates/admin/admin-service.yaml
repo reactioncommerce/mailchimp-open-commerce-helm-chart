@@ -23,7 +23,7 @@ spec:
     - name: "admin"
       port: 4080
       targetPort: 4080
-    - name: "inspector"
-      port: 9231
-      targetPort: 9229
+    # - name: "inspection"
+    #   port: 9231
+    #   targetPort: 9229
 {{- end }}

@@ -1,0 +1,47 @@
+{{- if .Values.admin.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ template "reactioncommerce.name" . }}
+    component: admin
+    chart: {{ template "reactioncommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "reactioncommerce.fullname" . }}-admin
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "reactioncommerce.name" . }}
+      component: admin
+      release: {{ .Release.Name }}
+  replicas: {{ .Values.admin.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "reactioncommerce.name" . }}
+        component: admin
+        release: {{ .Release.Name }}
+    spec:
+      {{- if .Values.admin.image.imagePullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.admin.image.imagePullSecret }}
+      {{- end }}
+      containers:
+      - name: {{ .Chart.Name }}-admin
+        image: "{{ .Values.admin.image.repository }}:{{ .Values.admin.image.tag }}"
+        imagePullPolicy: {{ .Values.admin.image.pullPolicy }}
+        ports:
+          - name: admin
+            containerPort: 4080
+            protocol: TCP
+          # - name: inspection
+          #   containerPort: 9229
+          #   protocol: TCP
+        envFrom:
+          - secretRef:
+              name: {{ template "reactioncommerce.fullname" . }}
+          - configMapRef:
+              name: {{ template "reactioncommerce.fullname" . }}-admin
+{{- end }}

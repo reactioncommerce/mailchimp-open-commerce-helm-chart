@@ -1,0 +1,25 @@
+{{- if .Values.api.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ template "reactioncommerce.name" . }}
+    component: api
+    chart: {{ template "reactioncommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "reactioncommerce.fullname" . }}-api
+  namespace: {{ .Release.Namespace | quote }} 
+data:
+  ## Force UTC timezone
+  TZ: "Etc/UTC"
+  NODE_ENV: "production"
+  REACTION_IDENTITY_PUBLIC_PASSWORD_RESET_URL: {{ printf "%s/account/reset-password/TOKEN" ( include "reactioncommerce.identity.url" . ) | quote }}
+  REACTION_IDENTITY_PUBLIC_VERIFY_EMAIL_URL: {{ printf "%s/#/verify-email/TOKEN" ( include "reactioncommerce.identity.url" . ) | quote }}
+  REACTION_ADMIN_PUBLIC_ACCOUNT_REGISTRATION_URL: {{ include "reactioncommerce.admin.url" . | quote }}
+  ROOT_URL: {{ include "reactioncommerce.api.url" . | quote }}
+  REACTION_SHOULD_INIT_REPLICA_SET: {{ .Values.api.initReplicaSet | default "false" | quote }}
+  HYDRA_OAUTH2_INTROSPECT_URL: {{ printf "%s/oauth2/introspect" ( include "reactioncommerce.hydra.admin.url" . ) | quote }}
+  GRAPHQL_PLAYGROUND_ENABLED: {{ .Values.api.enableGraphQlPlayground | default "false" | quote }}
+  GRAPHQL_INTROSPECTION_ENABLED: {{ .Values.api.enableGraphQlIntrospection | default "false" | quote }}
+{{- end }}

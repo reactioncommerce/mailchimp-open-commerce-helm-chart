@@ -1,0 +1,26 @@
+{{- if .Values.hydra.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ template "reactioncommerce.name" . }}
+    component: hydra
+    chart: {{ template "reactioncommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "reactioncommerce.fullname" . }}-hydra
+  namespace: {{ .Release.Namespace | quote }} 
+data:
+  ## Force UTC timezone
+  TZ: "Etc/UTC"
+  DSN: {{ printf "postgres://%s:%s@%s-postgresql-headless.%s.svc:5432/%s?sslmode=disable" .Values.postgresql.postgresqlUsername .Values.postgresql.postgresqlPassword ( include "reactioncommerce.fullname" . ) .Release.Namespace .Values.postgresql.postgresqlDatabase | quote }}
+  OAUTH2_EXPOSE_INTERNAL_ERRORS: "true"
+  OIDC_SUBJECT_IDENTIFIERS_ENABLED: "true"
+  SERVE_PUBLIC_CORS_ALLOWED_ORIGINS: {{ include "reactioncommerce.admin.url" . | quote }}
+  SERVE_PUBLIC_CORS_ENABLED: "true"
+  URLS_CONSENT: {{ printf "%s/consent" ( include "reactioncommerce.identity.url" . ) | quote }}
+  URLS_ERROR: {{ printf "%s/account/oauth-error" ( include "reactioncommerce.identity.url" . ) | quote }}
+  URLS_LOGIN: {{ printf "%s/login" ( include "reactioncommerce.identity.url" . ) | quote }}
+  URLS_LOGOUT: {{ printf "%s/logout" ( include "reactioncommerce.identity.url" . ) | quote }}
+  URLS_SELF_ISSUER: {{ include "reactioncommerce.hydra.frontend.url" . | quote }}
+{{- end }}

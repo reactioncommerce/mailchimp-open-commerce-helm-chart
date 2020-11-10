@@ -37,7 +37,7 @@ admin:
   replicaCount: 2
   image:
     repository: reactioncommerce/admin
-    tag: 3.0.0-beta.6
+    tag: 3.0.0-beta.10
     pullPolicy: IfNotPresent
     # imagePullSecret:
   service:
@@ -61,6 +61,14 @@ api:
   replicaCount: 2
 
   ##
+  ## Serve the GraphQL Playground UI from /graphql
+  # enableGraphQlPlayground: false
+
+  ##
+  ## Allow introspection of the GraphQL API.
+  # enableGraphQlIntrospection: false
+
+  ##
   ## An SMTP mail url, e.g. smtp://user:pass@example.com:465, that is 
   ## used to send all transactional emails from the email-smtp plugin.
   # mailUrl: smtp://user:pass@example.com:465
@@ -71,7 +79,7 @@ api:
   # initReplicaSet: false
   image:
     repository: reactioncommerce/reaction
-    tag: 3.7.1
+    tag: 3.9.0
     pullPolicy: IfNotPresent
     # imagePullSecret:
   service:
@@ -95,7 +103,7 @@ identity:
   replicaCount: 2
   image:
     repository: reactioncommerce/identity
-    tag: 3.0.0
+    tag: 3.3.0
     pullPolicy: IfNotPresent
     # imagePullSecret:
   service:
@@ -120,7 +128,7 @@ web:
   # sessionSecret: CHANGEME
   image:
     repository: reactioncommerce/example-storefront
-    tag: 3.0.0
+    tag: 3.1.0
     pullPolicy: IfNotPresent
     # imagePullSecret:
   service:
