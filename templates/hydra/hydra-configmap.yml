@@ -13,7 +13,6 @@ metadata:
 data:
   ## Force UTC timezone
   TZ: "Etc/UTC"
-  DSN: {{ printf "postgres://%s:%s@%s-postgresql-headless.%s.svc:5432/%s?sslmode=disable" .Values.postgresql.postgresqlUsername .Values.postgresql.postgresqlPassword ( include "reactioncommerce.fullname" . ) .Release.Namespace .Values.postgresql.postgresqlDatabase | quote }}
   OAUTH2_EXPOSE_INTERNAL_ERRORS: "true"
   OIDC_SUBJECT_IDENTIFIERS_ENABLED: "true"
   SERVE_PUBLIC_CORS_ALLOWED_ORIGINS: {{ include "reactioncommerce.admin.url" . | quote }}
