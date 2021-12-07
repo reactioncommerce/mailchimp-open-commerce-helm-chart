@@ -1,35 +1,30 @@
 <p align="center">
-  <img width="410" height="70" src="https://user-images.githubusercontent.com/8715048/95626402-1c2a0f00-0a72-11eb-8785-500fc1c53187.png">
+  <a target="_blank" href="https://merchstack.io/"><img width="152" height="183" src="https://user-images.githubusercontent.com/8715048/100143018-9c72cb00-2e8c-11eb-9546-1832cd7215b0.png"></a>
 </p>
 <p align="center">
   <a target="_blank" href="https://github.com/slingshotlabs/reaction-oss-helm-chart/actions?query=workflow%3Alint"><img src="https://github.com/slingshotlabs/reaction-oss-helm-chart/workflows/lint/badge.svg" alt="lint" style="max-width:100%;"></a>
 </p>
-<p align="center"><a href="https://reactioncommerce.com/" target="_blank">Reaction Commerce</a> OSS Helm Chart</p>
+<p align="center"><a href="https://mailchimp.com/developer/open-commerce/" target="_blank">Open Commerce</a> OSS Helm Chart</p>
 
-This repository contains a helm chart for deploying the open source Reaction Commerce platform ontop of Kubernetes/Openshift. We also published a [blog post](https://slingshotlabs.io/blog/deploying-reaction-commerce-on-kubernetes/) that outlines how to use this helm chart to deploy Reaction Commerce on Kubernetes.
+This repository contains a helm chart for deploying the open source Open Commerce platform ontop of a Kubernetes cluster.
 
-Reaction Commerce is an API-first, modular commerce stack made for ambitious brands and retailers. Reaction’s service-based architecture is built to deliver flexibility and freedom at scale.
+Open Commerce is an API-first, modular commerce stack made for ambitious brands and retailers. Open Commerces’s service-based architecture is built to deliver flexibility and freedom at scale.
 
 This chart packages the following components from the OSS platform:
 
 | Service                                             | Description                                                                                                                                                                                         |
 |-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [OAuth2 Server (Hydra)](http://localhost:4444) | ORY Hydra OAuth2 token server.                                                                                                                                                                |
-| [Reaction Identity](http://localhost:4100)     | The OAuth2-compatible user interface for Reaction Identity, such as login and registration.                                                                                                         |
-| [Reaction API](http://localhost:3000)          | The Reaction API, which includes [a GraphQL endpoint](http://localhost:3000/graphql-beta). See [GraphQL Playground](https://www.apollographql.com/docs/apollo-server/features/graphql-playground/). |
-| [Reaction Admin](http://localhost:4080)        | A user interface for administrators and shop managers to configure shops, manage products, and process orders.                                                                                      |
-| [Example Storefront](http://localhost:4000)    | An example Reaction storefront UI built with [Next.JS](https://github.com/zeit/next.js/).
+|  [Open Commerce API](http://localhost:3000)          | The Open Commerce API, which includes [a GraphQL endpoint](http://localhost:3000/graphql-beta). See [GraphQL Playground](https://www.apollographql.com/docs/apollo-server/features/graphql-playground/). |
+| [Open Commerce Admin](http://localhost:4080)        | A user interface for administrators and shop managers to configure shops, manage products, and process orders.                                                                                      |
+| [Example Storefront](http://localhost:4000)    | An example Open Commerce storefront UI built with [Next.JS](https://github.com/zeit/next.js/).
 
-Current chart version is `0.2.4`
-
-Source code can be found [here](https://reactioncommerce.com/)
+Current chart version is `0.3.0`
 
 ## Chart Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami/ | mongodb | 7.14.1 |
-| https://kubernetes-charts.storage.googleapis.com/ | postgresql | 8.1.4 |
+| https://charts.bitnami.com/bitnami/ | mongodb | 10.26.3 |
 
 ## Chart Values
 
@@ -39,28 +34,28 @@ Source code can be found [here](https://reactioncommerce.com/)
 | admin.host | string | `"admin.example.shop"` | The hostname of the admin interface |
 | admin.image.pullPolicy | string | `"IfNotPresent"` | Default image pull policy  |
 | admin.image.repository | string | `"reactioncommerce/admin"` | Image repository |
-| admin.image.tag | string | `"3.0.0-beta.10"` | Image tag |
+| admin.image.tag | string | `"4.0.0-beta.12"` | Image tag |
 | admin.ingress.annotations | object | `{}` | A set of custom annotations to apply to the admin ingress resource |
 | admin.ingress.enabled | bool | `true` | Enable or disables the ingress resource |
 | admin.ingress.livenessPath | string | `nil` | Liveness probe path for the ingress |
-| admin.ingress.path | string | `""` | Default virtual path on the admin ingress |
+| admin.ingress.path | string | `"/"` | Default virtual path on the admin ingress |
 | admin.ingress.tls.enabled | bool | `true` | Enables or disables TLS on the ingress |
 | admin.ingress.tls.secretName | string | `"tls-secret"` | Secret path for tls certs |
 | admin.replicaCount | int | `2` | Pod replica count |
 | admin.service.annotations | object | `{}` | Service annotations |
 | admin.service.type | string | `"ClusterIP"` | Service type |
 | admin.ssl | bool | `true` | Enables external SSL support |
-| api.enabled | bool | `true` | Enables or disables the reaction api |
+| api.enabled | bool | `true` | Enables or disables the Open Commerce api |
 | api.enableGraphQlPlayground | bool | `false` | Serve the GraphQL Playground UI from /graphql |
 | api.enableGraphQlIntrospection | bool | `false` | Allow introspection of the GraphQL API. |
-| api.host | string | `"api.example.shop"` | The hostname of the reaction api |
+| api.host | string | `"api.example.shop"` | The hostname of the Open Commerce api |
 | api.image.pullPolicy | string | `"IfNotPresent"` | Default image pull policy |
 | api.image.repository | string | `"reactioncommerce/reaction"` | Image repository |
-| api.image.tag | string | `"3.10.0"` | Image tag |
+| api.image.tag | string | `"4.1.4"` | Image tag |
 | api.ingress.annotations | object | `{}` | A set of custom annotations to apply to the api ingress resource  |
 | api.ingress.enabled | bool | `true` | Enable or disables the ingress resource |
 | api.ingress.livenessPath | string | `nil` | Liveness probe path for the ingress |
-| api.ingress.path | string | `""` | Default virtual path on the admin ingress |
+| api.ingress.path | string | `"/"` | Default virtual path on the admin ingress |
 | api.ingress.tls.enabled | bool | `true` | Enables or disables TLS on the ingress |
 | api.ingress.tls.secretName | string | `"tls-secret"` | Secret path for tls certs |
 | api.replicaCount | int | `2` | Pod replica count |
@@ -69,72 +64,30 @@ Source code can be found [here](https://reactioncommerce.com/)
 | api.ssl | bool | `true` | Enables external SSL support |
 | global.segmentKey | string | `"YOUR_PRIVATE_SEGMENT_API_KEY"` | Set this if you want to track storefront analytics such as page views with Segment. You can find this key on your Segment dashboard |
 | global.stripeKey | string | `"YOUR_PRIVATE_STRIPE_API_KEY"` | The Stripe secret key from your Stripe account dashboard. |
-| hydra.admin.host | string | `"private.example.shop"` |  |
-| hydra.admin.ingress.annotations | object | `{}` |  |
-| hydra.admin.ingress.enabled | bool | `true` |  |
-| hydra.admin.ingress.livenessPath | string | `nil` |  |
-| hydra.admin.ingress.path | string | `""` |  |
-| hydra.admin.ingress.tls.enabled | bool | `true` |  |
-| hydra.admin.ingress.tls.secretName | string | `"tls-secret"` |  |
-| hydra.enabled | bool | `true` |  |
-| hydra.frontend.host | string | `"hydra.example.shop"` |  |
-| hydra.frontend.ingress.annotations | object | `{}` |  |
-| hydra.frontend.ingress.enabled | bool | `true` |  |
-| hydra.frontend.ingress.livenessPath | string | `nil` |  |
-| hydra.frontend.ingress.path | string | `""` |  |
-| hydra.frontend.ingress.tls.enabled | bool | `true` |  |
-| hydra.frontend.ingress.tls.secretName | string | `"tls-secret"` |  |
-| hydra.image.pullPolicy | string | `"IfNotPresent"` |  |
-| hydra.image.repository | string | `"oryd/hydra"` |  |
-| hydra.image.tag | string | `"v1.0.8"` |  |
-| hydra.pairwiseSalt | string | `"youReallyNeedToChangeThis"` |  |
-| hydra.replicaCount | int | `1` |  |
-| hydra.secretsSystem | string | `"youReallyNeedToChangeThis"` |  |
-| hydra.service.annotations | object | `{}` |  |
-| hydra.service.type | string | `"ClusterIP"` |  |
-| hydra.ssl | bool | `true` |  |
-| identity.enabled | bool | `true` |  |
-| identity.host | string | `"identity.example.shop"` |  |
-| identity.image.pullPolicy | string | `"IfNotPresent"` |  |
-| identity.image.repository | string | `"reactioncommerce/identity"` |  |
-| identity.image.tag | string | `"3.3.0"` |  |
-| identity.ingress.annotations | object | `{}` |  |
-| identity.ingress.enabled | bool | `true` |  |
-| identity.ingress.livenessPath | string | `nil` |  |
-| identity.ingress.path | string | `""` |  |
-| identity.ingress.tls.enabled | bool | `true` |  |
-| identity.ingress.tls.secretName | string | `"tls-secret"` |  |
-| identity.replicaCount | int | `2` |  |
-| identity.service.annotations | object | `{}` |  |
-| identity.service.type | string | `"ClusterIP"` |  |
-| identity.ssl | bool | `true` |  |
 | mongodb.enabled | bool | `true` |  |
-| mongodb.mongodbRootPassword | string | `"reaction"` |  |
-| mongodb.replicaSet.enabled | bool | `true` |  |
-| mongodb.replicaSet.name | string | `"rs0"` |  |
-| mongodb.replicaSet.replicas.arbiter | int | `1` |  |
-| mongodb.replicaSet.replicas.secondary | int | `1` |  |
-| mongodb.replicaSet.useHostnames | bool | `true` |  |
+| mongodb.auth.enabled | bool | `true` |  |
+| mongodb.auth.rootPassword | string | `""` |  |
+| mongodb.auth.rootUser | string | `admin` |  |
+| mongodb.architecture | string | `replicaset` |  |
+| mongodb.replicaSetName | string | `rs0` |  |
+| mongodb.replicaCount | int | `2` |  |
+| mongodb.replicaSetHostnames | bool | `true` |  |
+| mongodb.persistence.enabled | bool | `true` |  |
+| mongodb.persistence.size | string | `8Gi` |  |
+| mongodb.perssitence.storageClass | string | `""` |  |
+| mongodb.arbiter.enabled | bool | `true` |  |
 | mongodb.service.annotations | object | `{}` |  |
+| mongodb.service.type | string | `ClusterIP` |  |
 | mongodb.service.port | int | `27017` |  |
-| mongodb.service.type | string | `"ClusterIP"` |  |
-| mongodb.usePassword | bool | `true` |  |
-| postgresql.enabled | bool | `true` |  |
-| postgresql.persistence.accessMode | string | `"ReadWriteOnce"` |  |
-| postgresql.persistence.enabled | bool | `true` |  |
-| postgresql.postgresqlDatabase | string | `"hydra"` |  |
-| postgresql.postgresqlPassword | string | `"hydra"` |  |
-| postgresql.postgresqlUsername | string | `"postgres"` |  |
-| postgresql.service.port | int | `5432` |  |
 | web.enabled | bool | `true` |  |
-| web.host | string | `"www.example.shop"` |  |
+| web.host | string | `"example.shop"` |  |
 | web.image.pullPolicy | string | `"IfNotPresent"` |  |
 | web.image.repository | string | `"reactioncommerce/example-storefront"` |  |
-| web.image.tag | string | `"4.0.0"` |  |
+| web.image.tag | string | `"5.1.0"` |  |
 | web.ingress.annotations | object | `{}` |  |
 | web.ingress.enabled | bool | `true` |  |
 | web.ingress.livenessPath | string | `nil` |  |
-| web.ingress.path | string | `""` |  |
+| web.ingress.path | string | `"/"` |  |
 | web.ingress.tls.enabled | bool | `true` |  |
 | web.ingress.tls.secretName | string | `"tls-secret"` |  |
 | web.replicaCount | int | `2` |  |

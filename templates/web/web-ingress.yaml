@@ -1,11 +1,11 @@
 {{- if .Values.web.enabled -}}
 {{- if .Values.web.ingress.enabled -}}
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ template "reactioncommerce.fullname" . }}-web
+  name: {{ template "opencommerce.fullname" . }}-web
   labels:
-    app: {{ template "reactioncommerce.name" . }}
+    app: {{ template "opencommerce.name" . }}
     component: web
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     release: "{{ .Release.Name }}"
@@ -24,10 +24,13 @@ spec:
   rules:
     - http:
         paths:
-          - path: {{ .Values.web.path }}
+          - path: {{ .Values.web.ingress.path }}
+            pathType: Prefix
             backend:
-              serviceName: {{ template "reactioncommerce.fullname" . }}-web
-              servicePort: web
+              service:      
+                name: {{ template "opencommerce.fullname" . }}-web
+                port:
+                  number: 4000 
       host: {{ .Values.web.host }}
 {{- end }}
 {{- end }}

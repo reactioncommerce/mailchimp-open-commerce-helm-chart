@@ -3,24 +3,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: {{ template "reactioncommerce.name" . }}
+    app: {{ template "opencommerce.name" . }}
     component: admin
-    chart: {{ template "reactioncommerce.chart" . }}
+    chart: {{ template "opencommerce.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-  name: {{ template "reactioncommerce.fullname" . }}-admin
+  name: {{ template "opencommerce.fullname" . }}-admin
   namespace: {{ .Release.Namespace | quote }}
 spec:
   selector:
     matchLabels:
-      app: {{ template "reactioncommerce.name" . }}
+      app: {{ template "opencommerce.name" . }}
       component: admin
       release: {{ .Release.Name }}
   replicas: {{ .Values.admin.replicaCount }}
   template:
     metadata:
       labels:
-        app: {{ template "reactioncommerce.name" . }}
+        app: {{ template "opencommerce.name" . }}
         component: admin
         release: {{ .Release.Name }}
     spec:
@@ -41,7 +41,7 @@ spec:
           #   protocol: TCP
         envFrom:
           - secretRef:
-              name: {{ template "reactioncommerce.fullname" . }}
+              name: {{ template "opencommerce.fullname" . }}
           - configMapRef:
-              name: {{ template "reactioncommerce.fullname" . }}-admin
+              name: {{ template "opencommerce.fullname" . }}-admin
 {{- end }}
