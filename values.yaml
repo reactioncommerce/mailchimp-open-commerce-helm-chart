@@ -21,12 +21,8 @@ global:
   ## Note: This overrides the Mongo subchart values i.e. bring your own
   # mongoOplogUrl: 
 
-  ##
-  ## The Postgres database URL.
-  ## Note: This overrides the Postgres subchart values i.e. bring your own
-  # postgresUrl: postgres://<username>:<password>@example_rds.amazonaws.com:5432/hydra_database_name
-
-  
+  ## A secret token that you need to change
+  tokenSecret: ThisIsAnUnsecurePlaceHolder!ChangeMe!
 
 ##
 ## Admin panel configuration
@@ -37,7 +33,7 @@ admin:
   replicaCount: 2
   image:
     repository: reactioncommerce/admin
-    tag: 3.0.0-beta.10
+    tag: 4.0.0-beta.12
     pullPolicy: IfNotPresent
     # imagePullSecret:
   service:
@@ -45,11 +41,11 @@ admin:
     type: ClusterIP
   ingress:
     enabled: true
-    path: ""
+    path: "/"
     annotations: {}
     livenessPath:
     tls:
-      enabled: true
+      enabled: false
       secretName: tls-secret
 
 ##
@@ -76,10 +72,10 @@ api:
   ##
   ## If this is true, on startup the API will auto-initialize a MongoDB 
   ## replica set if one isn't found.
-  # initReplicaSet: false
+  initReplicaSet: false
   image:
     repository: reactioncommerce/reaction
-    tag: 3.9.0
+    tag: 4.1.4
     pullPolicy: IfNotPresent
     # imagePullSecret:
   service:
@@ -87,48 +83,24 @@ api:
     type: ClusterIP
   ingress:
     enabled: true
-    path: ""
+    path: "/"
     annotations: {}
     livenessPath:
     tls:
-      enabled: true
-      secretName: tls-secret
-
-##
-## Identity service configuration
-identity:
-  enabled: true
-  host: identity.example.shop
-  ssl: true
-  replicaCount: 2
-  image:
-    repository: reactioncommerce/identity
-    tag: 3.3.0
-    pullPolicy: IfNotPresent
-    # imagePullSecret:
-  service:
-    annotations: {}
-    type: ClusterIP
-  ingress:
-    enabled: true
-    path: ""
-    annotations: {}
-    livenessPath:
-    tls:
-      enabled: true
+      enabled: false
       secretName: tls-secret
 
 ##
 ## Example storefront configuration
 web:
   enabled: true
-  host: www.example.shop
+  host: example.shop
   ssl: true
   replicaCount: 2
-  # sessionSecret: CHANGEME
+  sessionSecret: PlaceHolder!ChangeMe!
   image:
     repository: reactioncommerce/example-storefront
-    tag: 3.1.0
+    tag: 5.1.0
     pullPolicy: IfNotPresent
     # imagePullSecret:
   service:
@@ -136,7 +108,7 @@ web:
     type: ClusterIP
   ingress:
     enabled: true
-    path: ""
+    path: "/"
     annotations: {}
     livenessPath:
     tls:
@@ -147,80 +119,22 @@ web:
 ## MongoDB chart configuration
 mongodb:
   enabled: true
-  usePassword: true
-  # existingSecret: name-of-existing-secret
-  mongodbRootPassword: reaction
+  auth:
+    enabled: true
+    rootPassword: reaction
+    rootUser: admin
+  architecture: replicaset
+  replicaSetName: rs0
+  replicaCount: 2
+  replicaSetHostnames: true
+  persistence:
+    enabled: true
+    size: 8Gi
+    storageClass: ""
+  arbiter:
+    enabled: true
   service:
     annotations: {}
     type: ClusterIP
     port: 27017
-  replicaSet:
-    enabled: true
-    useHostnames: true
-    name: rs0
-    replicas:
-      secondary: 1
-      arbiter: 1
 
-##
-## PostgreSQL chart configuration (for Hydra)
-postgresql:
-  enabled: true 
-  postgresqlUsername: postgres
-  postgresqlPassword: hydra
-  postgresqlDatabase: hydra
-  # existingSecret: postgres-secret
-  # existingSecretKey: postgres-password
-  service:
-    port: 5432
-  persistence:
-    enabled: true
-    # storageClass: classname
-    accessMode: ReadWriteOnce
-
-##
-## Hydra chart configuration
-hydra:
-  enabled: true
-  replicaCount: 1
-  ssl: true
-  image:
-    repository: oryd/hydra
-    tag: v1.0.8
-    pullPolicy: IfNotPresent
-    # imagePullSecret:
-  
-  ##
-  ## Refer to https://www.ory.sh/docs/oryos.9/hydra/advanced#openid-connect
-  pairwiseSalt: youReallyNeedToChangeThis
-
-  ##
-  ## A key or keys used to encrypt sensitive data using AES-GCM (256 bit) and
-  ## validate HMAC signatures. Must be at least 16 characters long. This may be
-  ## a single key or a comma-separated list where the first item in the list is 
-  ## used for signing and encryption and the whole list is used for verifying 
-  ## signatures and decryption. See https://www.ory.sh/docs/hydra/configuration
-  secretsSystem: youReallyNeedToChangeThis
-  service:
-    annotations: {}
-    type: ClusterIP
-  frontend:
-    host: hydra.example.shop
-    ingress:
-      enabled: true
-      path: ""
-      annotations: {}
-      livenessPath:
-      tls:
-        enabled: true
-        secretName: tls-secret
-  admin:
-    host: private.example.shop
-    ingress:
-      enabled: true
-      path: ""
-      annotations: {}
-      livenessPath:
-      tls:
-        enabled: true
-        secretName: tls-secret

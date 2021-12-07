@@ -1,22 +1,13 @@
-Congratulations. You have just deployed Reaction Commerce!
-
-If you have any questions regarding this chart or Reaction Commerce in general, feel free to contact us at hello@slingshotlabs.io .
+Congratulations. You have just deployed Open Commerce (formely Reaction Commerce)!
 
 External URLs:
 
   {{- if .Values.admin.enabled }}
-    - Admin: {{ template "reactioncommerce.admin.url" . }}
+    - Admin: {{ template "opencommerce.admin.url" . }}
   {{- end }}
   {{- if .Values.api.enabled }}
-    - API: {{ template "reactioncommerce.api.url" . }}
-  {{- end }}
-  {{- if .Values.identity.enabled }}
-    - Identity: {{ template "reactioncommerce.identity.url" . }}
+    - API: {{ template "opencommerce.api.url" . }}
   {{- end }}
   {{- if .Values.web.enabled }}
-    - Storefront: {{ template "reactioncommerce.web.url" . }}
-  {{- end }}
-  {{- if .Values.hydra.enabled }}
-    - Hydra Frontend: {{ template "reactioncommerce.hydra.frontend.url" . }}
-    - Hydra Admin: {{ template "reactioncommerce.hydra.admin.url" . }}
+    - Storefront: {{ template "opencommerce.web.url" . }}
   {{- end }}

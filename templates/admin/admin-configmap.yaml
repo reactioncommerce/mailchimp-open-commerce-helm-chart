@@ -1,0 +1,24 @@
+{{- if .Values.admin.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ template "opencommerce.name" . }}
+    component: admin
+    chart: {{ template "opencommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "opencommerce.fullname" . }}-admin
+  namespace: {{ .Release.Namespace | quote }} 
+data:
+  ## Force UTC timezone
+  TZ: "Etc/UTC"
+  NODE_ENV: "production"
+  PORT: "4080"
+  PUBLIC_FILES_BASE_URL: {{ include "opencommerce.api.url" . | quote }}
+  PUBLIC_GRAPHQL_API_URL_HTTP: {{ printf "%s/graphql" ( include "opencommerce.api.url" . ) | quote }}
+  PUBLIC_GRAPHQL_API_URL_WS: {{ printf "%s/graphql" ( include "opencommerce.api.socketUrl" . ) | quote }}
+  PUBLIC_I18N_BASE_URL: {{ include "opencommerce.api.url" . | quote }}
+  PUBLIC_STOREFRONT_HOME_URL: {{ include "opencommerce.web.url" . | quote }}
+  ROOT_URL: {{ include "opencommerce.admin.url" . | quote }}
+{{- end }}
