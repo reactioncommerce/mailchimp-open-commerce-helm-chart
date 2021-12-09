@@ -1,11 +1,11 @@
 {{- if .Values.admin.enabled -}}
 {{- if .Values.admin.ingress.enabled -}}
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ template "reactioncommerce.fullname" . }}-admin
+  name: {{ template "opencommerce.fullname" . }}-admin
   labels:
-    app: {{ template "reactioncommerce.name" . }}
+    app: {{ template "opencommerce.name" . }}
     component: admin
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     release: "{{ .Release.Name }}"
@@ -25,9 +25,12 @@ spec:
     - http:
         paths:
           - path: {{ .Values.admin.ingress.path }}
+            pathType: Prefix
             backend:
-              serviceName: {{ template "reactioncommerce.fullname" . }}-admin
-              servicePort: admin
+              service:
+                name: {{ template "opencommerce.fullname" . }}-admin
+                port:
+                  number: 4080
       host: {{ .Values.admin.host }}
 {{- end }}
 {{- end }}
