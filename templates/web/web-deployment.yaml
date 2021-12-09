@@ -44,4 +44,6 @@ spec:
                 name: {{ template "opencommerce.fullname" . }}
             - configMapRef:
                 name: {{ template "opencommerce.fullname" . }}-web
+          resources:
+            {{- toYaml .Values.web.resources | nindent 12 }}
 {{- end }}

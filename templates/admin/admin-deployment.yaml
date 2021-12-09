@@ -47,4 +47,6 @@ spec:
               name: {{ template "opencommerce.fullname" . }}
           - configMapRef:
               name: {{ template "opencommerce.fullname" . }}-admin
+        resources:
+          {{- toYaml .Values.admin.resources | nindent 12 }}
 {{- end }}
