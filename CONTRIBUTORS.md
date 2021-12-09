@@ -1,4 +1,4 @@
-Open Commerce OSS Helm Chart Contributors
+Open Commerce Helm Chart Contributors
 ============================================
 
 * **[Dominic Robinson](https://github.com/dcrdev)**
