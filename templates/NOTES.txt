@@ -1,5 +1,6 @@
 Congratulations. You have just deployed Open Commerce (formely Reaction Commerce)!
 
+If you have any questions regarding this chart or Reaction Commerce in general, feel free to contact us at hello@merchstack.com.
 External URLs:
 
   {{- if .Values.admin.enabled }}

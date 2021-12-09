@@ -4,13 +4,13 @@
 <p align="center">
   <a target="_blank" href="https://github.com/slingshotlabs/reaction-oss-helm-chart/actions?query=workflow%3Alint"><img src="https://github.com/slingshotlabs/reaction-oss-helm-chart/workflows/lint/badge.svg" alt="lint" style="max-width:100%;"></a>
 </p>
-<p align="center"><a href="https://mailchimp.com/developer/open-commerce/" target="_blank">Open Commerce</a> OSS Helm Chart</p>
+<p align="center"><a href="https://mailchimp.com/developer/open-commerce/" target="_blank">Open Commerce</a> Open Commerce Helm Chart</p>
 
 This repository contains a helm chart for deploying the open source Open Commerce platform ontop of a Kubernetes cluster.
 
 Open Commerce is an API-first, modular commerce stack made for ambitious brands and retailers. Open Commerces’s service-based architecture is built to deliver flexibility and freedom at scale.
 
-This chart packages the following components from the OSS platform:
+This chart packages the following components from the Open Commerce platform:
 
 | Service                                             | Description                                                                                                                                                                                         |
 |-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
