@@ -8,6 +8,9 @@ metadata:
     chart: {{ template "opencommerce.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
+  annotations:
+    checksum/config: {{ include (print $.Chart.Name "/templates/web/web-configmap.yaml") . | sha256sum }}
+    checksum/secrets: {{ include (print $.Chart.Name "/templates/secrets.yaml") . | sha256sum }}
   name: {{ template "opencommerce.fullname" . }}-web
   namespace: {{ .Release.Namespace | quote }} 
 spec:
