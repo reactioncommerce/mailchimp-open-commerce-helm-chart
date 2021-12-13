@@ -45,6 +45,8 @@ Current chart version is `0.3.0`
 | admin.service.annotations | object | `{}` | Service annotations |
 | admin.service.type | string | `"ClusterIP"` | Service type |
 | admin.ssl | bool | `true` | Enables external SSL support |
+| admin.resources.requests.cpu | string | `"500m"` | CPU Resource Constraint |
+| admin.resources.requests.memory | string | `"1Gi"` | Memory Resource Constraint |
 | api.enabled | bool | `true` | Enables or disables the Open Commerce api |
 | api.enableGraphQlPlayground | bool | `false` | Serve the GraphQL Playground UI from /graphql |
 | api.enableGraphQlIntrospection | bool | `false` | Allow introspection of the GraphQL API. |
@@ -62,35 +64,39 @@ Current chart version is `0.3.0`
 | api.service.annotations | object | `{}` | Service annotations |
 | api.service.type | string | `"ClusterIP"` | Service type |
 | api.ssl | bool | `true` | Enables external SSL support |
+| api.resources.requests.cpu | string | `"500m"` | CPU Resource Constraint |
+| api.resources.requests.memory | string | `"1Gi"` | Memory Resource Constraint |
 | global.segmentKey | string | `"YOUR_PRIVATE_SEGMENT_API_KEY"` | Set this if you want to track storefront analytics such as page views with Segment. You can find this key on your Segment dashboard |
 | global.stripeKey | string | `"YOUR_PRIVATE_STRIPE_API_KEY"` | The Stripe secret key from your Stripe account dashboard. |
-| mongodb.enabled | bool | `true` |  |
-| mongodb.auth.enabled | bool | `true` |  |
-| mongodb.auth.rootPassword | string | `""` |  |
-| mongodb.auth.rootUser | string | `admin` |  |
-| mongodb.architecture | string | `replicaset` |  |
-| mongodb.replicaSetName | string | `rs0` |  |
-| mongodb.replicaCount | int | `2` |  |
-| mongodb.replicaSetHostnames | bool | `true` |  |
-| mongodb.persistence.enabled | bool | `true` |  |
-| mongodb.persistence.size | string | `8Gi` |  |
-| mongodb.perssitence.storageClass | string | `""` |  |
-| mongodb.arbiter.enabled | bool | `true` |  |
-| mongodb.service.annotations | object | `{}` |  |
-| mongodb.service.type | string | `ClusterIP` |  |
-| mongodb.service.port | int | `27017` |  |
-| web.enabled | bool | `true` |  |
-| web.host | string | `"example.shop"` |  |
-| web.image.pullPolicy | string | `"IfNotPresent"` |  |
-| web.image.repository | string | `"reactioncommerce/example-storefront"` |  |
-| web.image.tag | string | `"5.1.0"` |  |
-| web.ingress.annotations | object | `{}` |  |
-| web.ingress.enabled | bool | `true` |  |
-| web.ingress.livenessPath | string | `nil` |  |
-| web.ingress.path | string | `"/"` |  |
-| web.ingress.tls.enabled | bool | `true` |  |
-| web.ingress.tls.secretName | string | `"tls-secret"` |  |
-| web.replicaCount | int | `2` |  |
-| web.service.annotations | object | `{}` |  |
-| web.service.type | string | `"ClusterIP"` |  |
-| web.ssl | bool | `true` |  |
+| mongodb.enabled | bool | `true` | Enables or disables MongoDB deployment |
+| mongodb.auth.enabled | bool | `true` | Enable or disable MongoDB Authentication |
+| mongodb.auth.rootPassword | string | `""` | MongoDB Root User Password |
+| mongodb.auth.rootUser | string | `admin` | MongoDB Root Username |
+| mongodb.architecture | string | `replicaset` | MongoDB Architecture |
+| mongodb.replicaSetName | string | `rs0` | MongoDB Replica Set Name |
+| mongodb.replicaCount | int | `2` | MongoDB Count of Replicas |
+| mongodb.replicaSetHostnames | bool | `true` | Enable or Disable hostnames for MongoDB replicas |
+| mongodb.persistence.enabled | bool | `true` | Enable or Disable persistence for MongoDB |
+| mongodb.persistence.size | string | `8Gi` | Storage size for MongoDB persistence |
+| mongodb.perssitence.storageClass | string | `""` | Storage class for MongoDB persistence |
+| mongodb.arbiter.enabled | bool | `true` | Enable or disable MongoDB Arbiter |
+| mongodb.service.annotations | object | `{}` | MongoDB Service Annotations |
+| mongodb.service.type | string | `ClusterIP` | Service type |
+| mongodb.service.port | int | `27017` | Service port |
+| web.enabled | bool | `true` | Enables or disables the template StoreFront |
+| web.host | string | `"example.shop"` | The hostname of the template StoreFront |
+| web.image.pullPolicy | string | `"IfNotPresent"` | Default image pull policy |
+| web.image.repository | string | `"reactioncommerce/example-storefront"` | Image repository |
+| web.image.tag | string | `"5.1.0"` | Image tag |
+| web.ingress.annotations | object | `{}` | A set of custom annotations to apply to the web ingress resource |
+| web.ingress.enabled | bool | `true` | Enable or disables the ingress resource |
+| web.ingress.livenessPath | string | `nil` | Liveness probe path for the ingress |
+| web.ingress.path | string | `"/"` | Default virtual path on the admin ingress |
+| web.ingress.tls.enabled | bool | `true` | Enables or disables TLS on the ingress |
+| web.ingress.tls.secretName | string | `"tls-secret"` | Secret path for tls certs |
+| web.replicaCount | int | `2` | Pod replica count |
+| web.service.annotations | object | `{}` | Service annotations |
+| web.service.type | string | `"ClusterIP"` | Service type |
+| web.ssl | bool | `true` | Enables external SSL support |
+| web.resources.requests.cpu | string | `"500m"` | CPU Resource Constraint |
+| web.resources.requests.memory | string | `"1Gi"` | Memory Resource Constraint |
