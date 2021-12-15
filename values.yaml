@@ -48,6 +48,17 @@ admin:
       enabled: false
       secretName: tls-secret
 
+  ## Resource requests/limits for the Open Commerce Admin pods
+  ##
+  ## EXAMPLE:
+  ##   resources:
+  ##     requests:
+  ##       cpu: "500m"
+  ##       memory: "1Gi"
+  ##
+  resources: {}
+
+
 ##
 ## API configuration
 api:
@@ -90,6 +101,16 @@ api:
       enabled: false
       secretName: tls-secret
 
+  ## Resource requests/limits for the Open Commerce API pods
+  ##
+  ## EXAMPLE:
+  ##   resources:
+  ##     requests:
+  ##       cpu: "500m"
+  ##       memory: "1Gi"
+  ##
+  resources: {}
+
 ##
 ## Example storefront configuration
 web:
@@ -114,6 +135,16 @@ web:
     tls:
       enabled: true
       secretName: tls-secret
+
+  ## Resource requests/limits for the Open Commerce Storefront pods
+  ##
+  ## EXAMPLE:
+  ##   resources:
+  ##     requests:
+  ##       cpu: "500m"
+  ##       memory: "1Gi"
+  ##
+  resources: {}
 
 ##
 ## MongoDB chart configuration
