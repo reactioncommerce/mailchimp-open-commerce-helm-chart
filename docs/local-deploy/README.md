@@ -14,7 +14,7 @@ the Open Commerce Helm charts and the methodology behind their
 configuration and deployment before you then move on to deploying Open
 Commerce in a more production ready capacity such as on a cloud hosted
 Kubernetes cluster via the same Helm charts.
-#
+
 ## **Components**
 
 -   [Docker Engine](https://www.docker.com/products/container-runtime):
@@ -33,7 +33,7 @@ Kubernetes cluster via the same Helm charts.
 -   [Helm](https://helm.sh/): Helm helps you manage Kubernetes
     applications --- Helm Charts help you define, install, and upgrade
     even the most complex Kubernetes application.
-#
+
 ## **Environment**
 
 This documentation has been written for and tested on Linux,
@@ -45,7 +45,7 @@ This documentation has been written for and tested on Linux,
     configuration will likely differ somewhat. Please consult each
     components bespoke documentation (linked above) for guidance
     regarding non-Linux installation and configuration.
-#
+
 ## **Installation**
 
 To install Open Commerce on a local Kubernetes cluster we need to
@@ -60,7 +60,7 @@ c.  [Install Helm](#install-helm)
 d.  [Install MiniKube](#install-minikube)
 
 e.  [Deploy Open Commerce via Helm charts](#deploy-open-commerce-via-helm-charts)
-#
+
 ## **Install Docker**
 
 First, we need to install Docker on to our machine which shall function
@@ -82,7 +82,7 @@ as our Container Runtime Engine.
     sudo dnf config-manager \
     --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
     ```
-    
+
     > *![](.//media/image1.png)*
 
 
@@ -133,7 +133,7 @@ as our Container Runtime Engine.
     ```
 
     > ![](.//media/image6.png)
-#
+
 ## **Install Kubectl**
 
 Now we need to install **kubectl** which is the CLI for managing a local
@@ -158,7 +158,7 @@ Kubernetes](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
     ```
 
     > ![](.//media/image8.png)
-#
+
 ## **Install Helm**
 
 We shall continue by installing **Helm** which, as mentioned above,
@@ -189,7 +189,7 @@ deployment.
     ```
 
     > ![](.//media/image10.png)
-#
+
 ## **Install Minikube**
 
 With Helm installed we can now proceed to install MiniKube. As discussed
@@ -238,7 +238,7 @@ cluster, upon which we can deploy Open Commerce.
     ```
 
     > *![](.//media/image14.png)
-#
+
 ## **Deploy Open Commerce via Helm charts**
 
 Now that our local Kubernetes cluster is available, we can begin to
@@ -361,7 +361,7 @@ deploy Open Commerce via the Helm charts.
     Example StoreFront: http://example.shop
 
     > ![](.//media/image26.png)
-#
+
 ## **Summary**
 
  With that we have a full Open Commerce environment deployed locally.
