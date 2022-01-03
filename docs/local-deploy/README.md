@@ -63,76 +63,7 @@ e.  [Deploy Open Commerce via Helm charts](#deploy-open-commerce-via-helm-charts
 
 ## **Install Docker**
 
-First, we need to install Docker on to our machine which shall function
-as our Container Runtime Engine.
-
-1.  Docker installation is dependent upon the Linux distribution that is
-    being used, as we are running Fedora we shall be using these
-    particular [steps](https://docs.docker.com/engine/install/fedora/).
-    But installation steps for other Linux distributions are available
-    and Docker provide good documentation around
-    [installation](https://docs.docker.com/engine/install/).
-
-2.  We shall begin by adding the remote Docker package repository to our
-    environment.
-
-    ```
-    sudo dnf -y install dnf-plugins-core
-
-    sudo dnf config-manager \
-    --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
-    ```
-
-    > *![](.//media/image1.png)*
-
-
-3.  Next, we shall install Docker itself.
-
-    ```
-    sudo dnf install docker-ce docker-ce-cli containerd.io
-    ```
-
-    > ![](.//media/image2.png)
-
-4.  Then we need to ensure that the Docker engine has started and
-    enabled to automatically start on system boot.
-
-    ```
-    sudo systemctl start docker
-    sudo systemctl enable docker
-    ```
-
-    > ![](.//media/image3.png)
- 
-
-5.  We can validate that Docker has installed and working by launching a
-    simple hello-world container.
-
-    ```
-    sudo docker run hello-world
-    ```
-
-    > ![](.//media/image4.png)
-
-6.  We then need to create a user group for Docker and add our user to
-    it. You may find that the docker group is already created and simply
-    need to add your user to it.
-
-    ```
-    sudo groupadd docker
-
-    sudo usermod -aG docker $USER
-    ```
-
-    > ![](.//media/image5.png)
-
-7.  Finally refresh your user sessions group membership.
-
-    ```
-    newgrp docker
-    ```
-
-    > ![](.//media/image6.png)
+As it is highly likely that Docker is already installed on your workstation we shall not go through the process here. If you find that you do not have Docker (e.g. performing install on a clean setup) then please consult the official Docker documentation for installation steps that meet your particular requirements (such as OS) - https://docs.docker.com/engine/install/.
 
 ## **Install Kubectl**
 
