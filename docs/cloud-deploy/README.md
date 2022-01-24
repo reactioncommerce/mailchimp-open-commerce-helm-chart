@@ -79,7 +79,7 @@ Authentication can be confirmed using a simple command such as the
 following.
 
 ```
-kubectl get pods --A
+kubectl get pods -A
 ```
 
 If a list of pods is returned, then you are successfully authenticated
@@ -140,12 +140,11 @@ your deployment and cloud infrastructure.
     
     ```
     cd mailchimp-open-commerce-helm-chart/ && cp ./values.yaml
-    ./my_values.yaml
     ```
 
     > ![](./media/100000010000036400000041617396A1348D1A94.png)
 
-2.  Open the my_values.yaml file in your editor of choice (we are using
+2.  Open the **my_values.yaml** file in your editor of choice (we are using
     [*VS Code*](https://code.visualstudio.com/) in the below
     screenshots).
 
@@ -157,7 +156,7 @@ your deployment and cloud infrastructure.
 
     > ![](./media/10000001000002A8000000B9576FA146CDD1BF6E.png)
 
-    Ensure that **tokenSecret **is changed to a unique and secure value
+    Ensure that **tokenSecret** is changed to a unique and secure value
     from the placeholder.
 
     > ![](./media/10000001000001C200000037398130B00BE6CF51.png)
@@ -198,7 +197,7 @@ your deployment and cloud infrastructure.
     > ![](./media/10000001000001450000003D114AB51A0934005E.png)
 
     The example storefront can be disabled via simply setting
-    **enabled** []{#anchor-2}to false. We shall leave as true for the
+    **enabled** to false. We shall leave as true for the
     sake of this deployment.
 
     > ![](./media/10000001000000A60000001D6DF40CD3F0680B27.png)
@@ -247,13 +246,13 @@ annotations will need adding under the **admin**, **API**, and **web**
 subsections.
 
 ```
-kubernetes.io/ingress.class: nginx\
+kubernetes.io/ingress.class: nginx
 ```
 
 > ![](./media/100000010000015F0000007A695AAAF13F67C20E.png)
 
 Also, if using Nginx ensure that the following annotations are also
-added under the **admin **subsection.
+added under the **admin** subsection.
 
 ```
 nginx.ingress.kubernetes.io/ssl-redirect: "false",
@@ -320,12 +319,12 @@ our Open Commerce Helm chart.
     process can be monitored.
 
     ```
-    watch kubectl get pods --A
+    watch kubectl get pods -A
     ```
 
     > ![](./media/10000001000003500000009C2E463703E211B905.png)
 
-    When all the pods []{#anchor-5}are "Running" and stable then the
+    When all the pods are "Running" and stable then the
     deployment is complete.
 
 ## **DNS**
@@ -345,15 +344,15 @@ You should see a **LoadBalancer** object that has an **EXTERNAL-IP** assigned.
 This address is the external IP of the clusters Ingress Controller.
 
 You should create a public DNS record for each FQDN configured (Admin,
-API and Web) that uses the FQDN as the source and the external IP as the
-destination.
+API and Web) that uses the FQDN as the domain and the external IP as the target
+address.
 
 ## **Endpoints**
 
 Finally, with our Helm deployment complete and our external DNS records
 in place we can now test our Open Commerce endpoints are accessible
 using the FQDN's configured. If all is well then you should be able to
-access the []{#anchor-6}Admin console, the example Storefront, and the
+access the Admin console, the example Storefront, and the
 API.
 
 > ![](./media/1000000100000530000001C8CF87C03D86FFAE9A.png)
@@ -375,6 +374,7 @@ container registry (such as Docker Hub) and update the
 repository.
 
 > ![](./media/100000010000015900000065296A25A42C246EC4.png)
+
 
 ## **Final Remarks** 
 
