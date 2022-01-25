@@ -1,0 +1,26 @@
+{{- if .Values.identity.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "reactioncommerce.fullname" . }}-identity
+  labels:
+    app: {{ template "reactioncommerce.name" . }}
+    component: identity
+    chart: {{ template "reactioncommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+  {{- if .Values.identity.service.annotations }}
+{{ toYaml .Values.identity.service.annotations | trim | indent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.identity.service.type }}
+  selector:
+    app: {{ template "reactioncommerce.name" . }}
+    component: identity
+    release: {{ .Release.Name }}
+  ports:
+    - name: "identity"
+      port: 4100
+      targetPort: 4100
+{{- end }}

@@ -4,6 +4,7 @@
 <p align="center">
   <a target="_blank" href="https://github.com/slingshotlabs/reaction-oss-helm-chart/actions?query=workflow%3Alint"><img src="https://github.com/slingshotlabs/reaction-oss-helm-chart/workflows/lint/badge.svg" alt="lint" style="max-width:100%;"></a>
 </p>
+
 <p align="center"><a href="https://mailchimp.com/developer/open-commerce/" target="_blank">Open Commerce</a> Helm Chart</p>
 
 This repository contains a helm chart for deploying the open source Open Commerce platform ontop of a Kubernetes cluster.

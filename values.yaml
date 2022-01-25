@@ -58,7 +58,6 @@ admin:
   ##
   resources: {}
 
-
 ##
 ## API configuration
 api:
