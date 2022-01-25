@@ -1,0 +1,26 @@
+{{- if .Values.api.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ template "opencommerce.name" . }}
+    component: api
+    chart: {{ template "opencommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "opencommerce.fullname" . }}-api
+  namespace: {{ .Release.Namespace | quote }} 
+data:
+  ## Force UTC timezone
+  TZ: "Etc/UTC"
+  NODE_ENV: "production"
+  ROOT_URL: {{ include "opencommerce.api.url" . | quote }}
+  REACTION_SHOULD_INIT_REPLICA_SET: {{ .Values.api.initReplicaSet | default "false" | quote }}
+  GRAPHQL_PLAYGROUND_ENABLED: {{ .Values.api.enableGraphQlPlayground | default "false" | quote }}
+  GRAPHQL_INTROSPECTION_ENABLED: {{ .Values.api.enableGraphQlIntrospection | default "false" | quote }}
+  STORE_URL: {{ include "opencommerce.web.url" . | quote }}
+  TOKEN_SECRET: {{ .Values.global.tokenSecret}}
+  REACTION_IDENTITY_PUBLIC_PASSWORD_RESET_URL: "https://null.com"
+  REACTION_IDENTITY_PUBLIC_VERIFY_EMAIL_URL: "https://null.com"
+  REACTION_ADMIN_PUBLIC_ACCOUNT_REGISTRATION_URL: "https://null.com"
+{{- end }}

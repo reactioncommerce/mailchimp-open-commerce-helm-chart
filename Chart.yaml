@@ -1,17 +1,18 @@
 apiVersion: v1
-name: reactioncommerce
-home: https://reactioncommerce.com/
-version: 0.2.2
-appVersion: 3.9.0
-description: Reaction Commerce is an API-first, modular commerce 
- stack made for ambitious brands and retailers. Reaction’s
+name: opencommerce
+version: 0.3.2
+appVersion: 4.0.0
+description: Open Commerce (formely Reaction Commerce) is an API-first, modular commerce 
+ stack made for ambitious brands and retailers. Open Commerce’s
  service-based architecture is built to deliver flexibility and
  freedom at scale.
 sources:
   - https://github.com/reactioncommerce/reaction
   - https://github.com/reactioncommerce/reaction-admin
-  - https://github.com/reactioncommerce/reaction-identity
   - https://github.com/reactioncommerce/example-storefront
+  - https://mailchimp.com/developer/open-commerce/docs/fundamentals/
 maintainers:
   - name: dcrdev
     email: dominic@dcrdev.com
+  - name: rickyholland
+    email: ricky@merchstack.com

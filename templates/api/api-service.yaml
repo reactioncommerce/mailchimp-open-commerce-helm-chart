@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "reactioncommerce.fullname" . }}-api
+  name: {{ template "opencommerce.fullname" . }}-api
   labels:
-    app: {{ template "reactioncommerce.name" . }}
+    app: {{ template "opencommerce.name" . }}
     component: api
-    chart: {{ template "reactioncommerce.chart" . }}
+    chart: {{ template "opencommerce.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   annotations:
@@ -16,7 +16,7 @@ metadata:
 spec:
   type: {{ .Values.api.service.type }}
   selector:
-    app: {{ template "reactioncommerce.name" . }}
+    app: {{ template "opencommerce.name" . }}
     component: api
     release: {{ .Release.Name }}
   ports:

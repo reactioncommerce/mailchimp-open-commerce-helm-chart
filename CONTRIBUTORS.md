@@ -1,10 +1,11 @@
-Reaction Commerce OSS Helm Chart Contributors
+Open Commerce Helm Chart Contributors
 ============================================
 
 * **[Dominic Robinson](https://github.com/dcrdev)**
 
   * Chart Maintainer
 
-* **[Chris Birk](https://github.com/cmbirk)**
 
-  * Mailer updates
+* **[Ricky Holland](https://github.com/rickyholland)**
+
+  * Chart Maintainer
