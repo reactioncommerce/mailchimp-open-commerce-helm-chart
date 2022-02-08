@@ -7,7 +7,7 @@
 
 <p align="center"><a href="https://mailchimp.com/developer/open-commerce/" target="_blank">Open Commerce</a> Helm Chart</p>
 
-This repository contains a helm chart for deploying the open source Open Commerce platform ontop of a Kubernetes cluster.
+This repository contains a helm chart for deploying the open source Open Commerce platform on top of a Kubernetes cluster.
 
 Open Commerce is an API-first, modular commerce stack made for ambitious brands and retailers. Open Commerces’s service-based architecture is built to deliver flexibility and freedom at scale.
 
