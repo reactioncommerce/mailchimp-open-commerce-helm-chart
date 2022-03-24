@@ -1,0 +1,65 @@
+apiVersion: v1
+entries:
+  mongodb:
+  - annotations:
+      category: Database
+    apiVersion: v2
+    appVersion: 4.4.9
+    created: "2022-03-24T13:46:04.79188056Z"
+    dependencies:
+    - name: common
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - bitnami-common
+      version: 1.x.x
+    description: NoSQL document-oriented database that stores JSON-like documents
+      with dynamic schemas, simplifying the integration of data in content-driven
+      applications.
+    digest: cd4049a30cf6ba8f4057d1e09d4e5498a472d02bb7c178e4576514d3d46171d0
+    home: https://github.com/bitnami/charts/tree/master/bitnami/mongodb
+    icon: https://bitnami.com/assets/stacks/mongodb/img/mongodb-stack-220x234.png
+    keywords:
+    - mongodb
+    - database
+    - nosql
+    - cluster
+    - replicaset
+    - replication
+    maintainers:
+    - email: containers@bitnami.com
+      name: Bitnami
+    name: mongodb
+    sources:
+    - https://github.com/bitnami/bitnami-docker-mongodb
+    - https://mongodb.org
+    urls:
+    - charts/mongodb-10.26.3.tgz
+    version: 10.26.3
+  opencommerce:
+  - apiVersion: v1
+    appVersion: 4.0.0
+    created: "2022-03-24T13:46:04.786599805Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami/
+      version: 10.26.3
+    description: Open Commerce (formely Reaction Commerce) is an API-first, modular
+      commerce stack made for ambitious brands and retailers. Open Commerce’s service-based
+      architecture is built to deliver flexibility and freedom at scale.
+    digest: 07a3698054e65bd9eb68ff90226332ca01d620fb8034c131719b16ba628e0206
+    maintainers:
+    - email: dominic@dcrdev.com
+      name: dcrdev
+    - email: ricky@merchstack.com
+      name: rickyholland
+    name: opencommerce
+    sources:
+    - https://github.com/reactioncommerce/reaction
+    - https://github.com/reactioncommerce/reaction-admin
+    - https://github.com/reactioncommerce/example-storefront
+    - https://mailchimp.com/developer/open-commerce/docs/fundamentals/
+    urls:
+    - opencommerce-0.3.2.tgz
+    version: 0.3.2
+generated: "2022-03-24T13:46:04.781846788Z"
