@@ -139,7 +139,7 @@ your deployment and cloud infrastructure.
 1.  Begin by creating a copy of the provided values.yaml file.
     
     ```
-    cd mailchimp-open-commerce-helm-chart/ && cp ./values.yaml
+    cd mailchimp-open-commerce-helm-chart/ && cp ./values.yaml ./my_values.yaml 
     ```
 
     > ![](./media/100000010000036400000041617396A1348D1A94.png)
