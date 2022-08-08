@@ -39,9 +39,6 @@ spec:
           - name: admin
             containerPort: 4080
             protocol: TCP
-          # - name: inspection
-          #   containerPort: 9229
-          #   protocol: TCP
         envFrom:
           - secretRef:
               name: {{ template "opencommerce.fullname" . }}
