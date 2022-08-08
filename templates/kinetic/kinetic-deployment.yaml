@@ -1,0 +1,49 @@
+{{- if .Values.kinetic.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ template "opencommerce.name" . }}
+    component: kinetic
+    chart: {{ template "opencommerce.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    checksum/config: {{ include (print $.Chart.Name "/templates/kinetic/kinetic-configmap.yaml") . | sha256sum }}
+    checksum/secrets: {{ include (print $.Chart.Name "/templates/secrets.yaml") . | sha256sum }}
+  name: {{ template "opencommerce.fullname" . }}-kinetic
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "opencommerce.name" . }}
+      component: kinetic
+      release: {{ .Release.Name }}
+  replicas: {{ .Values.kinetic.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "opencommerce.name" . }}
+        component: kinetic
+        release: {{ .Release.Name }}
+    spec:
+      {{- if .Values.kinetic.image.imagePullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.kinetic.image.imagePullSecret }}
+      {{- end }}
+      containers:
+      - name: {{ .Chart.Name }}-kinetic
+        image: "{{ .Values.kinetic.image.repository }}:{{ .Values.kinetic.image.tag }}"
+        imagePullPolicy: {{ .Values.kinetic.image.pullPolicy }}
+        ports:
+          - name: kinetic
+            containerPort: 4080
+            protocol: TCP
+        envFrom:
+          - secretRef:
+              name: {{ template "opencommerce.fullname" . }}
+          - configMapRef:
+              name: {{ template "opencommerce.fullname" . }}-kinetic
+        resources:
+          {{- toYaml .Values.kinetic.resources | nindent 12 }}
+{{- end }}

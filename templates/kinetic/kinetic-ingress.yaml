@@ -1,0 +1,36 @@
+{{- if .Values.kinetic.enabled -}}
+{{- if .Values.kinetic.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ template "opencommerce.fullname" . }}-kinetic
+  labels:
+    app: {{ template "opencommerce.name" . }}
+    component: kinetic
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+  annotations:
+    {{ range $key, $value := .Values.kinetic.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+{{- if .Values.kinetic.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ .Values.kinetic.host }}
+      secretName: {{ .Values.kinetic.ingress.tls.secretName }}
+{{- end }}
+  rules:
+    - http:
+        paths:
+          - path: {{ .Values.kinetic.ingress.path }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ template "opencommerce.fullname" . }}-kinetic
+                port:
+                  number: 3001
+      host: {{ .Values.kinetic.host }}
+{{- end }}
+{{- end }}
