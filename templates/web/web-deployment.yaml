@@ -27,11 +27,12 @@ spec:
         component: web
         release: {{ .Release.Name }}
     spec:
+      {{- if .Values.kinetic.image.imagePullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.kinetic.image.imagePullSecret }}
+      {{- end }}
       containers:
-        {{- if .Values.web.image.imagePullSecret }}
-        imagePullSecrets:
-          - name: {{ .Values.web.image.imagePullSecret }}
-        {{- end }}
+
         - name: {{ .Chart.Name }}-web
           image: "{{ .Values.web.image.repository }}:{{ .Values.web.image.tag }}"
           imagePullPolicy: {{ .Values.web.image.pullPolicy }}
