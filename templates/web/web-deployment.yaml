@@ -27,23 +27,23 @@ spec:
         component: web
         release: {{ .Release.Name }}
     spec:
+      {{- if .Values.web.image.imagePullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.web.image.imagePullSecret }}
+      {{- end }}
       containers:
-        {{- if .Values.web.image.imagePullSecret }}
-        imagePullSecrets:
-          - name: {{ .Values.web.image.imagePullSecret }}
-        {{- end }}
-        - name: {{ .Chart.Name }}-web
-          image: "{{ .Values.web.image.repository }}:{{ .Values.web.image.tag }}"
-          imagePullPolicy: {{ .Values.web.image.pullPolicy }}
-          ports:
-            - name: web
-              containerPort: 4000
-              protocol: TCP
-          envFrom:
-            - secretRef:
-                name: {{ template "opencommerce.fullname" . }}
-            - configMapRef:
-                name: {{ template "opencommerce.fullname" . }}-web
-          resources:
-            {{- toYaml .Values.web.resources | nindent 12 }}
+      - name: {{ .Chart.Name }}-web
+        image: "{{ .Values.web.image.repository }}:{{ .Values.web.image.tag }}"
+        imagePullPolicy: {{ .Values.web.image.pullPolicy }}
+        ports:
+          - name: web
+            containerPort: 4000
+            protocol: TCP
+        envFrom:
+          - secretRef:
+              name: {{ template "opencommerce.fullname" . }}
+          - configMapRef:
+              name: {{ template "opencommerce.fullname" . }}-web
+        resources:
+          {{- toYaml .Values.web.resources | nindent 12 }}
 {{- end }}
