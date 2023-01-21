@@ -1,49 +1,49 @@
-{{- if .Values.admin.enabled -}}
+{{- if .Values.kinetic.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     app: {{ template "opencommerce.name" . }}
-    component: admin
+    component: kinetic
     chart: {{ template "opencommerce.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   annotations:
-    checksum/config: {{ include (print $.Chart.Name "/templates/admin/admin-configmap.yaml") . | sha256sum }}
+    checksum/config: {{ include (print $.Chart.Name "/templates/kinetic/kinetic-configmap.yaml") . | sha256sum }}
     checksum/secrets: {{ include (print $.Chart.Name "/templates/secrets.yaml") . | sha256sum }}
-  name: {{ template "opencommerce.fullname" . }}-admin
+  name: {{ template "opencommerce.fullname" . }}-kinetic
   namespace: {{ .Release.Namespace | quote }}
 spec:
   selector:
     matchLabels:
       app: {{ template "opencommerce.name" . }}
-      component: admin
+      component: kinetic
       release: {{ .Release.Name }}
-  replicas: {{ .Values.admin.replicaCount }}
+  replicas: {{ .Values.kinetic.replicaCount }}
   template:
     metadata:
       labels:
         app: {{ template "opencommerce.name" . }}
-        component: admin
+        component: kinetic
         release: {{ .Release.Name }}
     spec:
-      {{- if .Values.admin.image.imagePullSecret }}
+      {{- if .Values.kinetic.image.imagePullSecret }}
       imagePullSecrets:
-        - name: {{ .Values.admin.image.imagePullSecret }}
+        - name: {{ .Values.kinetic.image.imagePullSecret }}
       {{- end }}
       containers:
-      - name: {{ .Chart.Name }}-admin
-        image: "{{ .Values.admin.image.repository }}:{{ .Values.admin.image.tag }}"
-        imagePullPolicy: {{ .Values.admin.image.pullPolicy }}
+      - name: {{ .Chart.Name }}-kinetic
+        image: "{{ .Values.kinetic.image.repository }}:{{ .Values.kinetic.image.tag }}"
+        imagePullPolicy: {{ .Values.kinetic.image.pullPolicy }}
         ports:
-          - name: admin
+          - name: kinetic
             containerPort: 4080
             protocol: TCP
         envFrom:
           - secretRef:
               name: {{ template "opencommerce.fullname" . }}
           - configMapRef:
-              name: {{ template "opencommerce.fullname" . }}-admin
+              name: {{ template "opencommerce.fullname" . }}-kinetic
         resources:
-          {{- toYaml .Values.admin.resources | nindent 12 }}
+          {{- toYaml .Values.kinetic.resources | nindent 12 }}
 {{- end }}

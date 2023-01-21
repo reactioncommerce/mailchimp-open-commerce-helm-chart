@@ -59,6 +59,40 @@ admin:
   resources: {}
 
 ##
+## Kinetic (experimental) Admin panel configuration
+kinetic:
+  enabled: false
+  ssl: true
+  host: kinetic.example.shop
+  replicaCount: 2
+  image:
+    repository: reactioncommerce/kinetic
+    tag: latest
+    pullPolicy: IfNotPresent
+    # imagePullSecret:
+  service:
+    annotations: {}
+    type: ClusterIP
+  ingress:
+    enabled: true
+    path: "/"
+    annotations: {}
+    livenessPath:
+    tls:
+      enabled: false
+      secretName: tls-secret
+
+  ## Resource requests/limits for the Open Commerce Kinetic Admin pods
+  ##
+  ## EXAMPLE:
+  ##   resources:
+  ##     requests:
+  ##       cpu: "500m"
+  ##       memory: "1Gi"
+  ##
+  resources: {}
+
+##
 ## API configuration
 api:
   enabled: true
@@ -85,7 +119,7 @@ api:
   initReplicaSet: false
   image:
     repository: reactioncommerce/reaction
-    tag: 4.1.4
+    tag: 4.2.0
     pullPolicy: IfNotPresent
     # imagePullSecret:
   service:
@@ -120,7 +154,7 @@ web:
   sessionSecret: PlaceHolder!ChangeMe!
   image:
     repository: reactioncommerce/example-storefront
-    tag: 5.1.0
+    tag: 5.2.1
     pullPolicy: IfNotPresent
     # imagePullSecret:
   service:

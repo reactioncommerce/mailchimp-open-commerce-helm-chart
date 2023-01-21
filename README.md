@@ -12,13 +12,13 @@ This chart packages the following components from the Open Commerce platform:
 | [Open Commerce Admin](http://localhost:4080)        | A user interface for administrators and shop managers to configure shops, manage products, and process orders.                                                                                      |
 | [Example Storefront](http://localhost:4000)    | An example Open Commerce storefront UI built with [Next.JS](https://github.com/zeit/next.js/).
 
-Current chart version is `0.3.0`
+Current chart version is `0.4.0`
 
 ## Chart Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami/ | mongodb | 10.26.3 |
+| https://charts.bitnami.com/bitnami/ | mongodb | 11.1.10 |
 
 ## Chart Values
 
@@ -41,6 +41,23 @@ Current chart version is `0.3.0`
 | admin.ssl | bool | `true` | Enables external SSL support |
 | admin.resources.requests.cpu | string | `"500m"` | CPU Resource Constraint |
 | admin.resources.requests.memory | string | `"1Gi"` | Memory Resource Constraint |
+| kinetic.enabled | bool | `true` | Enables or disables the kinetic admin interface |
+| kinetic.host | string | `"kinetic.example.shop"` | The hostname of the kinetic admin interface |
+| kinetic.image.pullPolicy | string | `"IfNotPresent"` | Default image pull policy  |
+| kinetic.image.repository | string | `"reactioncommerce/kinetic"` | Image repository |
+| kinetic.image.tag | string | `"latest"` | Image tag |
+| kinetic.ingress.annotations | object | `{}` | A set of custom annotations to apply to the kinetic admin ingress resource |
+| kinetic.ingress.enabled | bool | `true` | Enable or disables the ingress resource |
+| kinetic.ingress.livenessPath | string | `nil` | Liveness probe path for the ingress |
+| kinetic.ingress.path | string | `"/"` | Default virtual path on the kinetic admin ingress |
+| kinetic.ingress.tls.enabled | bool | `true` | Enables or disables TLS on the ingress |
+| kinetic.ingress.tls.secretName | string | `"tls-secret"` | Secret path for tls certs |
+| kinetic.replicaCount | int | `2` | Pod replica count |
+| kinetic.service.annotations | object | `{}` | Service annotations |
+| kinetic.service.type | string | `"ClusterIP"` | Service type |
+| kinetic.ssl | bool | `true` | Enables external SSL support |
+| kinetic.resources.requests.cpu | string | `"500m"` | CPU Resource Constraint |
+| kinetic.resources.requests.memory | string | `"1Gi"` | Memory Resource Constraint |
 | api.enabled | bool | `true` | Enables or disables the Open Commerce api |
 | api.enableGraphQlPlayground | bool | `false` | Serve the GraphQL Playground UI from /graphql |
 | api.enableGraphQlIntrospection | bool | `false` | Allow introspection of the GraphQL API. |

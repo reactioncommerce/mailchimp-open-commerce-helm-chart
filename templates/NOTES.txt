@@ -6,6 +6,9 @@ External URLs:
   {{- if .Values.admin.enabled }}
     - Admin: {{ template "opencommerce.admin.url" . }}
   {{- end }}
+  {{- if .Values.kinetic.enabled }}
+    - Kinetic Admin (Experimental): {{ template "opencommerce.kinetic.url" . }}
+  {{- end }}
   {{- if .Values.api.enabled }}
     - API: {{ template "opencommerce.api.url" . }}
   {{- end }}

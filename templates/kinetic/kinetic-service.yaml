@@ -1,26 +1,26 @@
-{{- if .Values.admin.enabled -}}
+{{- if .Values.kinetic.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "opencommerce.fullname" . }}-admin
+  name: {{ template "opencommerce.fullname" . }}-kinetic
   labels:
     app: {{ template "opencommerce.name" . }}
-    component: admin
+    component: kinetic
     chart: {{ template "opencommerce.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   annotations:
-  {{- if .Values.admin.service.annotations }}
-{{ toYaml .Values.admin.service.annotations | trim | indent 4 }}
+  {{- if .Values.kinetic.service.annotations }}
+{{ toYaml .Values.kinetic.service.annotations | trim | indent 4 }}
   {{- end }}
 spec:
-  type: {{ .Values.admin.service.type }}
+  type: {{ .Values.kinetic.service.type }}
   selector:
     app: {{ template "opencommerce.name" . }}
-    component: admin
+    component: kinetic
     release: {{ .Release.Name }}
   ports:
-    - name: "admin"
-      port: 4080
-      targetPort: 4080
+    - name: "kinetic"
+      port: 3001
+      targetPort: 3001
 {{- end }}
